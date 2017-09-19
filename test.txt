@@ -1,1 +1,10 @@
-echo !/\d/
+<script>
+//递归弹窗死循环
+    function danger（）
+    {
+        alert("hello!");
+        danger ();
+    }
+    danger();
+
+</script>
