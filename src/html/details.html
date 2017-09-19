@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../css/master.css" />
+        <link rel="stylesheet" type="text/css" href="../font/iconfont.css" />
+        <link rel="stylesheet" type="text/css" href="../css/details.css" />
+    </head>
+    <body>
+        <div id="fixx"></div>
+        <div id="header"></div>
+        <div id="search"></div>
+        <div id="nav"></div>
+        <div id="main">
+            <div class="container">
+                <p class="webmap">当前位置：> 首页 > 站点地图 我也不知道怎么写</p>
+                <div class="good_main clear">
+                    <div class="left">
+                        <div id="mag_img">
+                            <img src="" alt="" />
+                        </div>
+                        <div class="img clear">
+                            <span class='icof icon-yiqiangguang over'></span>
+                            <img src="" alt="" id="big_img" />                        
+                            <span id="layer"></span>
+                            <span class="tv"></span>
+                            <div class="sub"></div>
+                            <span class="mag icof icon-sousuo"></span>
+                        </div>
+                        
+                        <div class="imgs">
+                            <span class="prev icof icon-l"></span>
+                            <div class="img_box">
+                                
+                            </div>
+                            <span class="next icof icon-right"></span>
+                        </div>
+
+                        <p class="about">
+                            <span class="id">商品货号：<span id="tag"></span></span>
+                                <span class="care"><span class="icof icon-xin"></span>已关注</span>
+                            <span class="share">
+                                <span class="icof icon-fenxiang"></span>分享</span>
+
+                        </p>
+                    </div>
+
+                    <div class="right">
+                        <p class="brand"><a href="" target="_blank"></a></p>
+                        <h2></h2>
+                        <p class="descript"></p>
+                        <ul class="price_box">
+                            <li class="price_p"><span class='label'>价格</span><strong id='sale'></strong></li>
+                            <li class="save">
+                                <span class="label">优惠</span>
+                                <div class="save_div">
+                                    <p class="disc"><span class='s_label'>降价</span>即将恢复平日价<span id="price"></span></p>
+                                    <p class="sub"><span class='s_label'>立减</span></p>
+                                    <p class="deli"><span class="s_label">包邮</span></p>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="choice_ul">
+                           <!--  <li class="ads"><span class="label">送至</span>
+                                <span class="where"></span>
+                                <span class="stock"></span>
+                            </li> -->
+                            <!-- <li class="color"></li> -->
+                            <!-- <li class="size"></li> -->
+                            <li class="num">
+                                <span class="label">数量</span>
+                                <p id="num_box">
+                                    <span class="sub_num">-</span>
+                                    <input type="text" id="num" value="1" />
+                                    <span id="add_num">+</span>
+                                </p>
+                                <p class="err">数量必须是整数</p>
+                            </li>
+                        </ul>
+
+                        <div class="add_car_box">
+                            <button id="add_Car">
+                            <span class='icof icon-gouwuche'></span>加入购物车</button>
+                            <p class="tv">TV商品</p>
+                            <p class="ugo_self">官网直供</p>
+                            <p class="bs_self">商家直营</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="good_details clear">
+                    <div class="left">
+                        <h3>
+                            <span class="det_tab tab on">商品详情</span>
+                            <span class="tab comm_tab">评论<span class="com_num"></span></span>
+                            <span class="ser_tab tab">服务说明</span>
+                            <span class="fix_info">
+                                数量：<span class='fixt_inum'></span>
+                                <span class="fixt_sum"></span>
+                            </span>
+                        </h3>
+                        <div class="det_div d_">
+                            <h4></h4>
+                            <ul class="det_table">
+                                <li class="name_li">
+                                    <span class="txt">商品名称</span>
+                                    <span class="li_t"></span>
+                                </li>
+                                <li class="brand_li">
+                                    <span class="txt">品牌</span>
+                                    <span class="li_t"></span>
+                                </li>
+                                <li class="time_li">
+                                    <span class="txt">上架时间</span>
+                                    <span class="li_t"></span>
+                                </li>
+                                <li class="param_li">
+                                    <span class="txt">规格参数</span>
+                                    <span class="li_t"></span>
+                                </li>
+                                <li class="list_li">
+                                    <span class="txt">包装清单</span>
+                                    <span class="li_t"></span>
+                                </li>
+                            </ul>
+                            <img src="" alt="" />
+                            <p class="meitu">没图了 不截了</p>
+                        </div>
+                        <div class="com_div d_">
+                            <h4></h4>
+                            <p class="meitu">假的 没有评论</p>
+                        </div>
+                        <div class="ser_div d_">
+                        <h4></h4>
+                            <p class="meitu">没有 没有 没有</p>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <h3>大家都在看</h3>
+                        <ul class="watch">
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </body>
+    <script type="text/javascript" src="../lib/require.js" data-main="../js/details.js"></script>
+</html>
