@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../css/master.css" />
+        <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    </head>
+    <body>
+        <div id="fixx"></div>
+        <div id="header"></div>
+        <div id="main">
+            <div class="container">
+                <img src='../imgs/app.gif' id="app"/>
+                <h2>
+                    <a href="../index.html" target="_blank" class='reg_logo'></a>
+                    <span class="reg_h"></span>
+                    <span class="now_login h2_right">已经注册，<a href="login.html">现在登录》</a></span>
+                </h2>
+                <ul class="reg_ul clear">
+                    <li class="reg_li on" ><span class='ico_sj'>手机注册</span></li>
+                    <li class="reg_li"><span class='ico_ds'>电视用户激活</span></li>         
+                </ul>
+                <div class="reg">
+                    <p>
+                        <span class="label">手机号码：</span>
+                        <span class="box">
+                            <input
+                            id='txt' type="text" />
+                            <i class="bg_user"></i>
+                        </span>
+
+                        <span class="tips tip">请输入常用手机号，避免忘记</span>
+                        <span class="tips tel_p">请输入手机号</span>
+                        <span class="tel_t tips">手机格式不正确，请核对后再输入</span>
+                        <span class="tel_exist tips">该手机号已经注册</span>
+                    </p>
+
+                    <p class="v_code_div">
+                        <span class="label">验证码：</span>
+                        <input id='v_code_input' type="text" />
+                        <label for="">
+                                <span id="v_code"></span>
+                                看不清，<a id="v_code_a" href="javascript:;">换一张</a>
+                        </label>
+
+                        <span class="tips c_t">验证码错误</span>
+                    </p>
+                    
+                    <p>
+                        <span class="label">设置密码：</span>
+                        <span class="box">
+                            <input
+                            id='psd' type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"/>
+                            <i class="bg_lock"></i>
+                        </span>
+                        <span class="tips tip">6-20位字符，可使用字母、数字或符号的组合</span>
+                        <span class="psd_t tips">请输入密码</span>
+                        <span class="tips_err tips">密码长度应是6-20位字符，请重新输入</span>
+                    </p>
+                    <p>
+                        <span class="label">确认密码：</span>
+                        <span class="box">
+                        <!-- 不允许输入空格 -->
+                            <input
+                            id='psd_sure' type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"/>
+                            <i class="bg_lock"></i>
+                        </span>
+
+                        <span class="tips tip">请再次输入密码</span>
+                        <span class="s_tips_err tips">两次输入的密码不一致，请重新输入</span>
+                        <span class="psd_st tips">请确认密码！</span>
+                    </p>
+
+                    <p class="last_input">
+                        <span class="label">短信验证码：</span>
+                        <span class="box">
+                            <input
+                            id='sj_code_input' type="text" />
+                            <span id='sj_code'>获取短信验证码</span>
+                        </span>
+
+                        <span class="tips">请先获取验证码！</span>
+                    </p>
+                    <p class="agree">
+                        <span class="label"></span>
+                        <label for="">
+                            <input type="checkbox" id='agree' />
+                            我已阅读并同意
+                            <a href="">《优品惠用户服务承诺》</a>
+                        </label>
+                    </p>
+
+                    <div class="submit">
+                        <div class="last">
+                            <button id="submit"></button>
+                            <label for="">如有疑问请点击<a href="">帮助中心</a>，或拨打客服热线<em>400-707-0707</em></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="tv">
+                    <p>
+                        <span class="label">手机号码：</span>
+                        <span class="box">
+                            <input id='t_txt' type="text" placeholder='该页面仅作tab切换' />
+                            <i class="bg_user"></i>
+                        </span>
+
+                        <span class="tips tip">请输入常用手机号，避免忘记</span>
+                        <span class="tips tel_p">请输入手机号</span>
+                        <span class="tel_t tips">手机格式不正确，请核对后再输入</span>
+                        <span class="tel_exist tips">该手机号已经注册</span>
+                    </p>
+
+                    <p class="v_code_div">
+                        <span class="label">验证码：</span>
+                        <input id='v_code_input' type="text" placeholder='并没有写功能'/>
+                        <label for="">
+                                <span id="v_code"></span>
+                                看不清，<a id="v_code_a" href="javascript:;">换一张</a>
+                        </label>
+
+                        <span class="tips c_t">验证码错误</span>
+                    </p>
+                    
+                    <p>
+                        <span class="label">短信验证码：</span>
+                        <span class="box">
+                            <input id='t_sj_code_input' type="text" />
+                            <span id='t_sj_code'>获取短信验证码</span>
+                        </span>
+
+                        <span class="tips">请先获取验证码！</span>
+                    </p>
+
+                    <p>
+                        <span class="label">设置密码：</span>
+                        <span class="box">
+                            <input  placeholder='该页面仅作tab切换'
+                            id='psd' type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"/>
+                            <i class="bg_lock"></i>
+                        </span>
+                        <span class="tips tip">6-20位字符，可使用字母、数字或符号的组合</span>
+                        <span class="psd_t tips">请输入密码</span>
+                        <span class="tips_err tips">密码长度应是6-20位字符，请重新输入</span>
+                    </p>
+                    <p class="last_input">
+                        <span class="label">确认密码：</span>
+                        <span class="box">
+                        <!-- 不允许输入空格 -->
+                            <input placeholder='并没有写功能'
+                            id='t_psd_sure' type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"/>
+                            <i class="bg_lock"></i>
+                        </span>
+
+                        <span class="tips tip">请再次输入密码</span>
+                        <span class="s_tips_err tips">两次输入的密码不一致，请重新输入</span>
+                        <span class="psd_st tips">请确认密码！</span>
+                    </p>
+
+                    <p class="agree">
+                        <span class="label"></span>
+                        <label for="">
+                            <input type="checkbox" id='t_agree' checked="checked" />
+                            我已阅读并同意
+                            <a href="">《优品惠用户服务承诺》</a>
+                        </label>
+                    </p>
+
+                    <div class="submit">
+                        <div class="last">
+                            <button id="t_submit"></button>
+                            <label for="">如有疑问请点击<a href="">帮助中心</a>，或拨打客服热线<em>400-707-0707</em></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </body>
+    <script type="text/javascript" src="../lib/require.js" data-main='../js/register.js'></script>
+</html>

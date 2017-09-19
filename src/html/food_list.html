@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../css/master.css" />
+        <link rel="stylesheet" type="text/css" href="../css/food_list.css" />
+    </head>
+    <body>
+        <div id="fixx"></div>
+        <div id="header"></div>
+        <div id="search"></div>
+        <div id="nav"></div>
+        <div id="main">
+            <div class="container">
+                <div class="menu_div">
+                    <ul class="eat_menu">
+                        <li class="all on"><a href="#"><span></span>全部商品</a></li>
+                        <li class="enport"><a href=""><span></span>进口食品</a></li>
+                        <li><a href=""><span></span>营养保健</a></li>
+                        <li><a href=""><span></span>休闲食品</a></li>
+                        <li><a href=""><span></span>粮油干货</a></li>
+                        <li><a href=""><span></span>酒水茶饮</a></li>
+                        <li class="last"><a href=""><span></span>生鲜食品</a></li>
+                    </ul>
+                </div>
+                <h2>美食&bull;民生</h2>
+                <p class="sort_p">
+                    快速查找：
+                    <span id='today' class='tags'>今日推荐</span> | 
+                    <span id="sales" class='tags'>销量</span>
+                    <span id="time" class='tags on'>上架时间</span>
+                    <span id="price" class='tags'>价格</span> | 
+                    <span id="free" class='tags'>特惠</span>
+
+                    <span id="seller">
+                        <input type="checkbox" />
+                        入驻商家
+                    </span>
+                    <span id="ugo_self">
+                        <input type="checkbox" />
+                        优品惠自营
+                    </span>
+                </p>
+
+                <ul class="list clear">                
+                </ul>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </body>
+    <script type="text/javascript" src="../lib/require.js" data-main="../js/food_list.js"></script>
+</html>
