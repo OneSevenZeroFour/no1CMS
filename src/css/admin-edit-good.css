@@ -1,0 +1,73 @@
+/* 
+* @Author: Marte
+* @Date:   2017-09-20 13:16:26
+* @Last Modified by:   Marte
+* @Last Modified time: 2017-09-20 17:37:25
+*/
+.admin-content {
+    padding-left: 25px;
+    padding-top: 50px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.5em;
+}
+.admin-content .img_form input{
+    display:inline-block;
+}
+.admin-content .label{
+    line-height: 2em;
+    font-weight: 600;
+}
+.admin-content .edit_name{
+    width: 420px;
+}
+.admin-content .money{
+    width: 90px;
+    padding-left: 5px;
+}
+.admin-content input{
+    font-weight: normal;
+}
+.admin-content textarea{
+    resize: none;
+    overflow-y: auto;
+}
+/*商品标签*/
+.admin-content .tag_p .tag{
+    display: inline-block;
+    border:1px solid #ddd;
+    color:#333;
+    margin-right: 1em;
+    font-size: 12px;
+    padding:0 0.8em;
+    cursor: pointer;
+}
+.admin-content .tag_p .tag:hover,.admin-content .tag_p .tag:active,.admin-content .tag_p .on{
+    border-color:#09c;
+    color:#09c;
+}
+.admin-content #add_intro{
+    width: 94%;
+}
+.admin-content .if{
+    margin-left: 2em;
+}
+#add_bn{
+    margin-top: 50px;
+    margin-bottom: 100px;
+    vertical-align: middle;
+    border:1px solid #ddd;
+    width: 120px;
+    height: 35px;
+    font-size: 16px;
+    background: #fff;
+    color:#333;
+}
+#add_bn:hover,#add_bn:active{
+    border-color:#9CF;
+    color:#9CF;
+    font-weight: 600;
+}
+.admin-content .add_tip{
+    vertical-align: middle;
+}

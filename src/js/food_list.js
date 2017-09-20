@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-08 15:45:03
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-11 13:16:21
+* @Last Modified time: 2017-09-20 17:32:44
 */
 
 require(['config'],function(){
@@ -149,7 +149,7 @@ require(['config'],function(){
                  // 生成列表
                  ul.append(arr.map(function(item){                                
                      var ov = 'stock_yes';
-                     if(item.stock==0)   ov = 'over';
+                     if(item.stock<=0)   ov = 'over';
                      var cs = 'normal';
                      if(item.price-item.sale>0) cs = 'sub_lot';
                      var dp = item.det;

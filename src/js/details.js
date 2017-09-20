@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-05 12:04:09
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-11 19:54:40
+* @Last Modified time: 2017-09-20 17:31:26
 */
 
 require(["config"],function(){
@@ -198,12 +198,12 @@ require(["config"],function(){
 // -----------------------------------------购物车-------------------------------------
           // 加入购物车
           var add_to_car = $("#add_Car");
-          if(obj.stock==0){
+          if(obj.stock<=0){
             add_to_car.html("已抢光").css({background:"#cccccc"});
             $(".img .over").show();
           }
           add_to_car.on("click",function(){
-            if(obj.stock==0) return false;
+            if(obj.stock<=0) return false;
   // -------------------------------------飞入----------------------------------------
             var top = $(this).offset().top;
             var left = $(this).offset().left + $(this).outerWidth();

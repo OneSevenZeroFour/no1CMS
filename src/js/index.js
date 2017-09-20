@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-01 12:04:18
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-11 17:30:34
+* @Last Modified time: 2017-09-20 17:29:12
 */
 
 require(['config'],function(){
@@ -94,7 +94,7 @@ require(['config'],function(){
 // --------------------------每日精选 列表生成+淡入淡出------------------------
             var ul_show = $(".sele_best .show_");
             var ul_bn = $(".sele_best .show_bn");
-            new das({api:true,num:6,page:1,orderBy:'(price-sale)',sortIs:'price-sale>0 and stock=1',sortWay:'DESC'}).init().getPage(function(arr,sum){
+            new das({api:true,num:6,page:1,orderBy:'(price-sale)',sortIs:'price-sale>0 and stock>0',sortWay:'DESC'}).init().getPage(function(arr,sum){
                     createBanList(arr);
                     ul_show.find('li').first().fadeIn();
                     var li_ = ul_show.find('li');
@@ -201,7 +201,7 @@ require(['config'],function(){
                 // 生成列表
                 list_ul.append(arr.map(function(item){
                     var ov = 'stock_yes';
-                    if(item.stock==0)   ov = 'over';
+                    if(item.stock<=0)   ov = 'over';
                     var cs = 'normal';
                     if(item.price-item.sale>0) cs = 'sub_lot';
                     var dp = item.det;
