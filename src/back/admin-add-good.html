@@ -125,11 +125,11 @@
                         <label for="" class="label">封面图：</label>
                         <input type="file" name='the_img' />
                         <input type="button" value="上传" />
-                        <img src="" alt="" class='edit_img'/>
+                        <img src="" alt="" class='add_img'/>
                     </form>
  -->
                     <p><span class="label">标题：</span>
-                    <input type="text" class="edit_name" /></p>
+                    <input type="text" class="add_name" /></p>
 
 
                     <p>
@@ -141,29 +141,74 @@
                     </p>
                     
                     <p>
-                        <label for="" class="label">原价：<input type="number" placeholder="￥" class="edit_price money" /></label>
-                        <label for="" class="label">现价：<input type="number" placeholder="￥"  class="edit_sale money" /></label>
+                        <label for="" class="label">原价：<input type="number" placeholder="￥" class="add_price money" /></label>
+                        <label for="" class="label">现价：<input type="number" placeholder="￥"  class="add_sale money" /></label>
                     </p>
 
-                    <p class="tag_p">
-                        <span class="label">商品分类：<br></span>
-                        <span class="tag tag_tv">TV商品</span>
-                        <span class="tag">营养保健</span>
-                        <span class="tag_add"></span>
-                    </p>
+                    <div class="tag_p">
+                        <span class="label">商品分类：</span>
+                        <div>
+                            <ul value='0'>
+                                <li class="tag">TV商品</li>
+                            </ul>
+
+                            <ul value='F'>
+                                <li class="tag">品质厨具</li>
+                                <li class="tag">厨房电器</li>
+                                <li class="tag">厨房用具</li>
+                            </ul>
+                            
+                            <ul value='G'>
+                                <li class="tag">进口食品</li>
+                                <li class="tag">营养保健</li>
+                                <li class="tag">特产零食</li>
+                                <li class="tag">粮油干货</li>
+                                <li class="tag">酒水茶饮</li>
+                            </ul>
+                            
+                            <ul value='H'>
+                                <li class="tag">优质睡眠</li>
+                                <li class="tag">家居装饰</li>
+                                <li class="tag">清洁收纳</li>
+                                <li class="tag">家庭健身</li>
+                                <li class="tag">生活电器</li>
+                                <li class="tag">日用配件</li>
+                            </ul>
+                            
+                            <ul value='I'>
+                                <li class="tag">服装内衣</li>
+                                <li class="tag">鞋包配饰</li>
+                                <li class="tag">旅游户外</li>
+                            </ul>
+                           
+                            <ul value='J'>
+                                <li class="tag">珍珠彩宝</li>
+                                <li class="tag">翡翠玉石</li>
+                                <li class="tag">天然木饰</li>
+                                <li class="tag">文化收藏</li>
+                            </ul>    
+                            
+                            <ul value='K'>
+                                <li class="tag">品牌护肤</li>
+                                <li class="tag">洗护护理</li>
+                                <li class="tag">彩妆香水</li>
+                                <li class="tag">美容仪器</li>
+                            </ul>
+                        </div>
+                    </div>
 
                     <p>
                         <span class="label">简介：</span>
-                        <textarea name="" id="" cols="100" rows="3" class="edit_det"></textarea>
+                        <textarea name="" id="" cols="100" rows="3" class="add_det"></textarea>
                     </p>
 
                     <p>
-                        <span class="label">库存：</span><input type="number" class="edit_stock" />
+                        <span class="label">库存：</span><input type="number" class="add_stock" />
                     </p>
 
                     <p>
                         <span class="label">商家：</span>
-                        <select name="seller" id="edit_seller">
+                        <select name="seller" id="add_seller">
                             <option value="0">TV商品</option>
                             <option value="1">官网直供</option>
                             <option value="2">商家直营</option>
@@ -182,22 +227,12 @@
 
                     <p>
                         <span class="label">赠品：</span>
-                        <select name="you" id="add_you">
-                            <option value="0">无</option>
-                            <option value="1">有赠品</option>
-                        </select>
-                        <label for="" class="label if_free if">赠品：
-                        <input type="text" class="add_free" /></label>
+                        <input type="text" class="add_free" placeholder='如果没有请跳过' />
                     </p>
                     
                     <p>
                         <span class="label">TV立减：</span>
-                        <select name="you" id="add_you">
-                            <option value="0">无</option>
-                            <option value="1">立减</option>
-                        </select>
-                        <label for="" class="label if_sub if">TV立减
-                        <input type="number" placeholder='￥' class="add_sub money" /></label>
+                        <input type="number" placeholder='如果有(￥)' class="add_sub money" />
                     </p>
                   <!--   <form name='imgs'>
                         <label class="label">商品图：</label>
@@ -205,15 +240,15 @@
                         <input type="button" value="上传" />
                     </form> -->
 
-                    <p><span class="label">商品规格：</span></p>
+                    <!-- <p><span class="label">商品规格：</span></p> -->
                     <div>
                         <span class="label">商品参数：</span><br />
-                        <textarea name="" id="" cols="120" rows="10" class="edit_param"></textarea>
+                        <textarea name="" id="" cols="120" rows="10" class="add_param"></textarea>
                     </div>
     
                     <div>
                         <span class="label">包装清单：</span><br />
-                        <textarea name="" id="" cols="120" rows="6" class="edit_list"></textarea>
+                        <textarea name="" id="" cols="120" rows="6" class="add_list"></textarea>
                     </div>
 
                     <div>

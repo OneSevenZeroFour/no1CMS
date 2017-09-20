@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-20 13:16:26
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-20 17:37:25
+* @Last Modified time: 2017-09-20 20:06:13
 */
 .admin-content {
     padding-left: 25px;
@@ -18,26 +18,40 @@
     line-height: 2em;
     font-weight: 600;
 }
-.admin-content .edit_name{
+.admin-content .add_name{
+    width: 420px;
+}
+.admin-content .add_href{
     width: 420px;
 }
 .admin-content .money{
     width: 90px;
-    padding-left: 5px;
 }
 .admin-content input{
+    padding:2px 5px;
     font-weight: normal;
+}
+.admin-content .add_sub{
+    width: 120px;
 }
 .admin-content textarea{
     resize: none;
     overflow-y: auto;
 }
 /*商品标签*/
+.admin-content .tag_p div{
+    display:flex;
+    width: 80%;
+}
+.admin-content .tag_p ul{
+    flex:1;
+}
 .admin-content .tag_p .tag{
     display: inline-block;
     border:1px solid #ddd;
     color:#333;
     margin-right: 1em;
+    margin-bottom: 1em;
     font-size: 12px;
     padding:0 0.8em;
     cursor: pointer;
