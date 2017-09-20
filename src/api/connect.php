@@ -9,7 +9,7 @@
     $sn = 'localhost';
     $user = 'root';
     $psd = '';
-    $dbs = 'f_ugo';
+    $dbs = 'pingdb';
 
     // 连接
     $conn = new mysqli($sn,$user,$psd,$dbs);

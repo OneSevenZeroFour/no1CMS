@@ -91,11 +91,28 @@ require(['config'],function(){
                               day.setYear(day.getFullYear()+10);
                               cc.exp = day.toUTCString();
                               cc.set();
+
                             }else{//不记住
                               cc.name = 'username';//删除用户名cookie
                               cc.del();
                             }
-                            window.location.href = 'user.html';
+                              //发送请求 查看用户等级是否为商家管理员 by:lfp
+                              $.ajax({
+                                url:"http://localhost:3000/searchVIP",
+                                type:"post",
+                                data:{
+                                  userID:user_info.id
+                                },
+                                success:function(data){
+                                  console.log(data);
+                                  if(data == "manager"){
+                                    window.location.href = 'admin-index.html';
+                                  }else if(data == "guest"){
+                                     window.location.href = 'user.html';
+                                  }
+                                  
+                                }
+                              })                            
                         }else{
                             wr.show();//提示密码错误
                             psd.css('border-color',"red");
