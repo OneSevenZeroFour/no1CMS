@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/kefu.css" />
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css" />
+</head>
+<body>
+    <div id='custom'>
+        <p class='normal'>
+            <img src="../imgs/kefu.jpg" alt="" />
+            <span>琪琪</span>
+            <span>
+                <span class='min'>-</span>
+                <span class='max'>□</span>
+                <span class='close'>x</span>
+            </span>
+        </p>
+        <main>
+            <div class='left'>
+                <main>
+                    <p>
+                        <span>每天上班，元气满满~</span>
+                        <span></span>
+                    </p>
+                </main>
+                <div>
+                    <ul class='_one'>
+                        <li class='iconfont face'>&#xe66e;</li>
+                        <li class='iconfont'>&#xf0044;</li>
+                        <li class='iconfont'>&#xe600;</li>
+                        <li class='iconfont'>&#xe68d;</li>
+                        <li class='iconfont'>&#xe614;</li>
+                        <li class='iconfont'>&#xe626;</li>
+                        <li class='iconfont'>&#xe52d;</li>
+                    </ul>
+                    <p>更多〉</p>
+                    <ul class='_two'>
+                        <li><img src="imgs/1.gif" alt="" /></li>
+                        <li><img src="imgs/2.gif" alt="" /></li>
+                        <li><img src="imgs/3.gif" alt="" /></li>
+                        <li><img src="imgs/4.gif" alt="" /></li>
+                        <li><img src="imgs/5.gif" alt="" /></li>
+                        <li><img src="imgs/6.gif" alt="" /></li>
+                        <li><img src="imgs/7.gif" alt="" /></li>
+                        <li><img src="imgs/8.gif" alt="" /></li>
+                        <li><img src="imgs/9.gif" alt="" /></li>
+                        <li><img src="imgs/0.gif" alt="" /></li>
+                    </ul>
+                </div>
+                <textarea name="" id="" placeholder='自由、富强、民主、文明..'></textarea>
+                <footer>
+                    <span>永豪科技</span>
+                    <div>
+                        <span id='over'>会话结束</span>
+                        <span id='send'>发送</span>
+                        <span>▲</span>
+                    </div>
+                </footer>
+            </div>
+            <div class='right'>
+                
+            </div>
+        </main>
+    </div>
+
+    <script type="text/javascript" src='../lib/socket.js'></script>
+    <script type="text/javascript" src='../lib/jquery-3.2.1.min.js'></script>
+    <script type="text/javascript">
+        var socket = io('http://localhost:8888');
+
+        //登录添加客服
+        socket.emit('addCus','ok');
+
+        socket.on('toCus',function(data){
+            //在聊天框右侧添加用户名
+            if($('#custom .right p').length==0){
+                $('#custom .right').append($('<p/>').css('background','#FFFF00').html(data.id));
+            }else{
+                $p = $('#custom .right p');
+                for(var i=0;i<$p.length;i++){
+                    if($p.eq(i).html()==data.id){
+                        $p.eq(i).css('background','#FFFF00');
+                        break;
+                    }else if(i==$p.length-1){
+                        $('#custom .right').append($('<p/>').css('background','#FFFF00').html(data.id));
+                    }
+                }
+            }
+            //接收信息
+            $main = $('#custom .left>main');
+            for(var i=0;i<$main.length;i++){
+                if($main.eq(i).attr('data-id')==data.id){
+                    writeDown($main.eq(i),data.msg,'user');
+                    break;
+                }else if(i==$main.length-1){
+                    data.msg = data.msg.replace(/#([0-9])/g,`<img src='imgs/$1.gif'/>`);
+                    $('#custom .left').prepend($('<main/>').css('display','none').attr('data-id',data.id).append($('<p/>').prop('class','user').html(`<span>${data.msg}</span><span>${time().hour}:${time().min}:${time().sec}</span>`)));
+                }
+            }
+            
+        });
+
+        //点击用户id打开聊天框
+        $('#custom .right').click(function(e){
+            if(e.target.tagName.toLowerCase()=='p'){
+                $(e.target).css('background','#FFF');
+                $('#custom .left>main').each(function(){
+                    if($(this).attr('data-id')==$(e.target).html()){
+                        $(this).css('display','block');
+                    }else{
+                        $(this).css('display','none');
+                    }
+                });
+            }
+        });
+
+        //向用户发送信息
+        $('#send').click(function(){
+            $main = $('#custom .left>main');
+            $text = $(this).closest('footer').prev();
+            var _id;
+            $main.each(function(){
+                if($(this).css('display')=='block'){
+                    _id = $(this).attr('data-id');
+                    writeDown($(this),$text.val(),'self');
+                }
+            });
+            var msg = {
+                id:_id,
+                msg:$text.val()
+            }
+            socket.emit('cusSend',msg);
+            $text.val('').focus();
+        });
+
+        //表情框显示
+        $('#custom .face').click(function(){
+            $('#custom ._two').css('display','block');
+        });
+        //表情包点击
+        $('#custom ._two').on('click','img',function(){
+            var idx = $(this).prop('src').indexOf('imgs/');
+            var num = $(this).prop('src').slice(idx+5).slice(0,-4);
+            $text = $('#custom textarea');
+            $text.val($text.val()+'#'+num);
+            $('#custom ._two').css('display','none');
+        });
+
+        //写入信息
+        function writeDown(ele,val,attr){
+            val = val.replace(/#([0-9])/g,`<img src='imgs/$1.gif'/>`);
+            ele.append($('<p/>').prop('class',attr).html(`<span>${val}</span><span>${time().hour}:${time().min}:${time().sec}</span>`)).scrollTop(ele[0].scrollHeight);
+        }
+
+        //返回当前时间
+        function time(){
+            var now = new Date();
+            var hour = now.getHours();
+            var min = now.getMinutes();
+            var sec = now .getSeconds();
+            hour = hour<10? '0'+hour:hour;
+            min = min<10? '0'+min:min;
+            sec = sec<10? '0'+sec:sec;
+            return {hour:hour,min:min,sec:sec}
+        }
+    </script>
+</body>
+</html>

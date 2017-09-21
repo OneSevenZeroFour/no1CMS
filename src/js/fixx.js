@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-02 12:04:42
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-20 21:20:44
+* @Last Modified time: 2017-09-21 21:21:11
 */
 
 define(['cookie','user','da','socket'],function(a,b,c,io){
@@ -115,10 +115,15 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                             flag = false;
                         });
                     }else if(e.target.className=='max'){
-
+                        //放大大大大大大大大，然而没写
                     }else if(e.target.className=='close'){
                         $('#custom').css('display','none');
                     }
+                });
+
+                //结束会话
+                $('#over').click(function(){
+                    $('#custom').css('display','none');
                 });
 
                 //tab切换
@@ -132,22 +137,59 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
 
                 //发送信息
                 $('#send').click(function(){
-                    socket.emit('sendMsg',$(this).closest('footer').prev().val());
+                    $text = $(this).closest('footer').prev();
+                    var cid = $('#custom .left main').attr('data-id');
+                    socket.emit('userSend',{
+                        id:cid,
+                        msg:$text.val()
+                    });
+                    writeDown($text.val(),'self');
+                    $('#custom .left main').scrollTop($('#custom .left main')[0].scrollHeight);
+                    $text.val('').focus();
                 });
-                socket.on('getMsg',function(data){
-                    
+
+                //表情框显示
+                $('#custom .face').click(function(){
+                    $('#custom ._two').css('display','block');
+                });
+
+                //表情点击
+                $('#custom ._two').on('click','img',function(){
+                    var idx = $(this).prop('src').indexOf('imgs/');
+                    var num = $(this).prop('src').slice(idx+5).slice(0,-4);
+                    $text = $('#custom textarea');
+                    $text.val($text.val()+'#'+num);
+                    $('#custom ._two').css('display','none');
                 });
             }
             //绑定事件
             medium();
+            //接收信息
+            socket.on('toUser',function(data){
+                writeDown(data.msg,'cus');
+                $main = $('#custom .left main');
+                $main.scrollTop($('#custom .left main')[0].scrollHeight);
+            });
+            //绑定客服
+            socket.on('setCus',function(data){
+                $('#custom .left main').attr('data-id',data);
+            });
+            //没有客服在线
+            socket.on('no',function(data){
+                $('#custom .left main').append($('<p/>').prop('class','cus').html(`<span>客服人员全躺尸了，暂时没有人能给予回复，请回去洗洗睡吧！</span><span>${time().hour}:${time().min}:${time().sec}</span>`));
+            });
+            //信息写入
+            function writeDown(val,attr){
+                val = val.replace(/#([0-9])/g,`<img src='imgs/$1.gif'/>`);
+                $('#custom .left main').append($('<p/>').prop('class',attr).html(`<span>${val}</span><span>${time().hour}:${time().min}:${time().sec}</span>`));
+            }
             //点击显示聊天窗口
             $('#online').click(function(){
                 $('#custom').css('display','block');
+                //欢迎语句的时间
+                $('#custom .first').html(time().hour+':'+time().min+':'+time().sec);
             });
-            //结束会话
-            $('#over').click(function(){
-                $('#custom').css('display','none');
-            });
+            
             //缩小后还原
             $('#custom').click(function(){
                 if(flag){
@@ -157,6 +199,17 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                 medium();
                 flag = true;
             });
+            //返回当前时间
+            function time(){
+                var now = new Date();
+                var hour = now.getHours();
+                var min = now.getMinutes();
+                var sec = now .getSeconds();
+                hour = hour<10? '0'+hour:hour;
+                min = min<10? '0'+min:min;
+                sec = sec<10? '0'+sec:sec;
+                return {hour:hour,min:min,sec:sec}
+            }
         }
     }//return
 });//defined

@@ -61,14 +61,35 @@
     height:300px;
     box-sizing: border-box;
     padding:20px 20px 0;
+    overflow-y:auto;
+}
+#custom .left main>p{
+    margin-top:10px;
+    min-width:10px;
 }
 #custom .left main p span:first-child{
+    max-width:375px;
+    box-sizing: border-box;
+    display:inline-block;
     font-size:14px;
     color:#000;
     border:1px solid #d5d5d5;
     padding:10px;
     border-radius:5px;
-    display:inline;
+    word-wrap:break-word;
+    text-align:left;
+}
+#custom .left main p span:last-child{
+    display:block;
+    color:#c8b9cc;
+    font-size:12px;
+    margin-top:2px;
+}
+#custom .left .cus{
+    
+}
+#custom .left .self{
+    text-align:right;
 }
 #custom .left>div{
     height:30px;
@@ -77,22 +98,42 @@
     justify-content: space-between;
     align-items:center;
     box-sizing: border-box;
+    position:relative;
 }
-#custom .left>div ul{
+#custom .left>div ._one{
     overflow:hidden;
 }
-#custom .left>div ul li{
+/* -------------------------------------------------表情包---------------- */
+#custom .left>div ._two{
+    display:none;
+    position:absolute;
+    left:0;
+    top:-82px;
+    width:200px;
+    height:80px;
+    border:1px solid #ccc;
+    overflow:hidden;
+}
+#custom .left>div ._two img{
+    float:left;
+    display:block;
+    width:40px;
+    height:40px;
+    cursor:pointer;
+}
+/* ----------------------------------------------------------------------- */
+#custom .left>div ._one li{
     cursor:pointer;
     float:left;
     margin-left:14px;
 }
-#custom .left>div ul li:first-child{
+#custom .left>div ._one li:first-child{
     font-weight:600;
 }
-#custom .left>div ul li:last-child{
+#custom .left>div ._one li:last-child{
     margin:0;
 }
-#custom .left>div ul li:hover{
+#custom .left>div ._one li:hover{
     color:#436EEE;
 }
 #custom .left>div p{
