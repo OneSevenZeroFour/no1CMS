@@ -15,8 +15,7 @@
         <meta name="apple-mobile-web-app-title" content="Amaze UI" />
         <link rel="stylesheet" href="assets/css/amazeui.min.css" />
         <link rel="stylesheet" href="assets/css/admin.css">
-        <link rel="stylesheet" type="text/css" href="../css/admin-edit-good.css" /> 
-        <script type="text/javascript" src="wangEditor/release/wangEditor.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/admin-edit-good.css" /> 
     </head>
 
     <body>
@@ -130,7 +129,20 @@
  -->
                     <p><span class="label">标题：</span>
                     <input type="text" class="add_name" /></p>
-
+                    
+                    <!-- 文件上传标识~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <div class="am-panel-bd am-collapse am-in" id="collapse-panel-1">
+                        <div class="surface-plot">
+                          <label for="surface">封面图：<input type="file"  accept="image/*" name="surface" id="surface" multiple="multiple"></label>
+                          <p><input type="submit" value="提交" id="btn-surface"></p>
+                          <div class="showImgtp"></div>
+                        </div>
+                        <div class="goods-img">
+                          <label for="goodsImg">商品图：<input type="file"  accept="image/*" name="goodsImg" id="goodsImg" multiple="multiple"></label>
+                          <p><input type="submit" value="提交" id="btn-goods"></p>
+                           <div class="showImgbt"></div>
+                        </div>
+                    </div>
 
                     <p>
                         <span class="label">品牌：</span>
@@ -141,24 +153,29 @@
                     </p>
                     
                     <p>
-                        <label for="" class="label">原价：<input type="number" placeholder="￥" class="add_price money" /></label>
-                        <label for="" class="label">现价：<input type="number" placeholder="￥"  class="add_sale money" /></label>
+                        <label for="" class="label">原价：<input min='1' type="number" placeholder="￥" class="add_price money" /></label>
+                        <label for="" class="label">现价：<input min='1' type="number" placeholder="￥"  class="add_sale money" /></label>
                     </p>
 
                     <div class="tag_p">
-                        <span class="label">商品分类：</span>
+                        <span class="label">商品分类：
+                            <select name="tag_" id="add_tag">
+                                <option value="F">品质厨房</option>
+                                <option value="G">美食民生</option>
+                                <option value="H">健康生活</option>
+                                <option value="I">魅力穿戴</option>
+                                <option value="J">珠宝收藏</option>
+                                <option value="K">美肤靓妆</option>
+                            </select>
+                        </span>
                         <div>
-                            <ul value='0'>
-                                <li class="tag">TV商品</li>
-                            </ul>
-
-                            <ul value='F'>
+                            <ul class='F'>
                                 <li class="tag">品质厨具</li>
                                 <li class="tag">厨房电器</li>
                                 <li class="tag">厨房用具</li>
                             </ul>
                             
-                            <ul value='G'>
+                            <ul class='G'>
                                 <li class="tag">进口食品</li>
                                 <li class="tag">营养保健</li>
                                 <li class="tag">特产零食</li>
@@ -166,7 +183,7 @@
                                 <li class="tag">酒水茶饮</li>
                             </ul>
                             
-                            <ul value='H'>
+                            <ul class='H'>
                                 <li class="tag">优质睡眠</li>
                                 <li class="tag">家居装饰</li>
                                 <li class="tag">清洁收纳</li>
@@ -175,20 +192,20 @@
                                 <li class="tag">日用配件</li>
                             </ul>
                             
-                            <ul value='I'>
+                            <ul class='I'>
                                 <li class="tag">服装内衣</li>
                                 <li class="tag">鞋包配饰</li>
                                 <li class="tag">旅游户外</li>
                             </ul>
                            
-                            <ul value='J'>
+                            <ul class='J'>
                                 <li class="tag">珍珠彩宝</li>
                                 <li class="tag">翡翠玉石</li>
                                 <li class="tag">天然木饰</li>
                                 <li class="tag">文化收藏</li>
                             </ul>    
                             
-                            <ul value='K'>
+                            <ul class='K'>
                                 <li class="tag">品牌护肤</li>
                                 <li class="tag">洗护护理</li>
                                 <li class="tag">彩妆香水</li>
@@ -196,7 +213,13 @@
                             </ul>
                         </div>
                     </div>
-
+                    
+                    <p><span class="label">是否TV商品：</span>
+                        <select name="tv" id="add_tv">
+                            <option value="">否</option>
+                            <option value="0">是</option>
+                        </select>
+                    </p>
                     <p>
                         <span class="label">简介：</span>
                         <textarea name="" id="" cols="100" rows="3" class="add_det"></textarea>
@@ -216,13 +239,8 @@
                     </p>
 
                     <p>
-                        <span class="label">包邮：</span>
-                        <select name="you" id="add_you">
-                            <option value="1">包邮</option>
-                            <option value="0">不包邮</option>
-                        </select>
-                        <label class="label if_you if">包邮起价：
-                        <input type="number" placeholder='￥' class="add_you_pay money" /></label>
+                        <span class="label">包邮最低价：</span>
+                        <input type="number" style="width:150px" placeholder='如果有包邮(￥)' class="add_you_pay money" min='0' />
                     </p>
 
                     <p>
@@ -232,7 +250,7 @@
                     
                     <p>
                         <span class="label">TV立减：</span>
-                        <input type="number" placeholder='如果有(￥)' class="add_sub money" />
+                        <input type="number" placeholder='如果立减(￥)' class="add_sub money" min='0.01' />
                     </p>
                   <!--   <form name='imgs'>
                         <label class="label">商品图：</label>
@@ -288,7 +306,7 @@
         <script src="assets/js/amazeui.min.js"></script>
 
         <script src="assets/js/app.js"></script>
-        <script type="text/javascript" src="js/admin-add-good.js"></script>
+        <script type="text/javascript" src="../lib/require.js" data-main='./js/admin-add-good.js'></script>
     </body>
 
 </html>
