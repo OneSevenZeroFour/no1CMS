@@ -28,7 +28,11 @@
                 <div>
                     <ul class='_one'>
                         <li class='iconfont face'>&#xe66e;</li>
-                        <li class='iconfont'>&#xf0044;</li>
+                        <li class='iconfont'>&#xf0044;
+                            <form id="uploadForm">
+                                <input type="file" id='file' class='pic' name='a' title=' ' multiple='multiple'/>
+                            </form>
+                        </li>
                         <li class='iconfont'>&#xe600;</li>
                         <li class='iconfont'>&#xe68d;</li>
                         <li class='iconfont'>&#xe614;</li>
@@ -69,7 +73,7 @@
     <script type="text/javascript" src='../lib/jquery-3.2.1.min.js'></script>
     <script type="text/javascript">
         var socket = io('http://localhost:8888');
-
+        var pic = [];
         //登录添加客服
         socket.emit('addCus','ok');
 
@@ -119,6 +123,7 @@
         //向用户发送信息
         $('#send').click(function(){
             $main = $('#custom .left>main');
+            $p = $('#custom .right p');
             $text = $(this).closest('footer').prev();
             var _id;
             $main.each(function(){
@@ -127,6 +132,13 @@
                     writeDown($(this),$text.val(),'self');
                 }
             });
+            //回复时取消高亮
+            for(var i=0;i<$p.length;i++){
+                if($p.eq(i).html()==_id){
+                    $p.eq(i).css('background','#fff');
+                    break;
+                }
+            }
             var msg = {
                 id:_id,
                 msg:$text.val()
@@ -135,8 +147,24 @@
             $text.val('').focus();
         });
 
+        //机器人自嗨
+        var derail = true;
+        socket.on('robot',function(data){
+            if((data.der&&derail)||(!data.der&&!derail)){
+                derail = false;
+                $main = $('#custom .left>main');
+                for(var i=0;i<$main.length;i++){
+                    if(!$main.eq(i).attr('data-id')){
+                        writeDown($main.eq(i),data.text,'user');
+                        break;
+                    }
+                }
+            }
+        });
+
         //表情框显示
-        $('#custom .face').click(function(){
+        $('#custom .face').click(function(e){
+            e.stopPropagation();
             $('#custom ._two').css('display','block');
         });
         //表情包点击
@@ -146,6 +174,66 @@
             $text = $('#custom textarea');
             $text.val($text.val()+'#'+num);
             $('#custom ._two').css('display','none');
+        });
+        //图片上传
+        $('#file').change(function(){
+            $.ajax({
+                type:"POST",
+                url:"http://localhost:1337/file",
+                cache:false,
+                data:new FormData($('#uploadForm')[0]),
+                processData: false,
+                contentType: false,
+                success:function(data){
+                    hell(data);
+                }
+            });
+        });
+
+        //地狱、保存上传过的图片的路径并写入页面
+        function hell(data){
+            data.forEach(function(item){
+                pic.push('../html/imgs/'+item);
+                $main = $('#custom .left>main');
+                for(var i=0;i<$main.length;i++){
+                    if($main.eq(i).css('display')=='block'){
+                        writeDown($main.eq(i),'<img src="imgs/'+item+'">','self');
+                        break;
+                    }
+                }
+                var cid = $('#custom .left main').attr('data-id');
+                socket.emit('cusSend',{
+                    id:cid,
+                    msg:'<img src="imgs/'+item+'">'
+                });
+            }); 
+        }
+        //点击任意地方表情框消失
+        document.onclick = function(){
+            $('#custom ._two').css('display','none');
+        }
+        //客服下线
+        window.onunload = function(){
+            socket.emit('overCus',pic);
+        }
+        //用户下线修改页面
+        socket.on('delUser',function(data){
+            $('#custom .right p').each(function(){
+                if($(this).html()==data){
+                    $(this).remove();
+                }
+            });
+            $main = $('#custom .left>main');
+            for(var i=0;i<$main.length;i++){
+                if($main.eq(i).attr('data-id')==data){
+                    if($main.eq(i).css('display')=='block'){
+                        $main.eq($main.length-1).css('display','block');
+                        writeDown($main.eq($main.length-1),'当前正在聊天的用户突然人间蒸发了#1','user');
+                    }
+                    $main.eq(i).remove();
+                    break;
+                }
+            }
         });
 
         //写入信息

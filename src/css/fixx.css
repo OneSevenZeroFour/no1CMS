@@ -105,6 +105,7 @@
 }
 /* -------------------------------------------------表情包---------------- */
 #custom .left>div ._two{
+    background-color: #fff;
     display:none;
     position:absolute;
     left:0;
@@ -140,6 +141,16 @@
     cursor:pointer;
     font-size:12px;
     color:#525252;
+}
+#custom .left>div ._one li:nth-child(2){
+    position:relative;
+    overflow:hidden;
+}
+#custom .left>div .pic{
+    position:absolute;
+    left:0;
+    top:0;
+    opacity:0;
 }
 #custom .left textarea{
     height:92px;

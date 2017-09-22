@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-02 12:04:42
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-21 21:21:11
+* @Last Modified time: 2017-09-22 21:10:59
 */
 
 define(['cookie','user','da','socket'],function(a,b,c,io){
@@ -78,6 +78,7 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
             var _left = '';
             var _top = '';
             var socket = io('http://localhost:8888');
+            var pic = [];
             function medium(){
                 //拖拽
                 $('#custom>p').mousedown(function(e){
@@ -144,12 +145,12 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                         msg:$text.val()
                     });
                     writeDown($text.val(),'self');
-                    $('#custom .left main').scrollTop($('#custom .left main')[0].scrollHeight);
                     $text.val('').focus();
                 });
 
                 //表情框显示
-                $('#custom .face').click(function(){
+                $('#custom .face').click(function(e){
+                    e.stopPropagation();
                     $('#custom ._two').css('display','block');
                 });
 
@@ -161,14 +162,45 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                     $text.val($text.val()+'#'+num);
                     $('#custom ._two').css('display','none');
                 });
+
+                //图片上传
+                $('#file').change(function(){
+                    $.ajax({
+                        type:"POST",
+                        url:"http://localhost:1337/file",
+                        cache:false,
+                        data:new FormData($('#uploadForm')[0]),
+                        processData: false,
+                        contentType: false,
+                        success:function(data){
+                            hell(data);
+                        }
+                    });
+                });
+            }
+
+            //地狱、保存上传过的图片的路径并写入页面
+            function hell(data){
+                data.forEach(function(item){
+                    pic.push('../html/imgs/'+item);
+                    writeDown('<img src="imgs/'+item+'">','self');
+                    var cid = $('#custom .left main').attr('data-id');
+                    socket.emit('userSend',{
+                        id:cid,
+                        msg:'<img src="imgs/'+item+'">'
+                    });
+                }); 
+            }
+
+            //点击任意地方表情框消失
+            document.onclick = function(){
+                $('#custom ._two').css('display','none');
             }
             //绑定事件
             medium();
             //接收信息
             socket.on('toUser',function(data){
                 writeDown(data.msg,'cus');
-                $main = $('#custom .left main');
-                $main.scrollTop($('#custom .left main')[0].scrollHeight);
             });
             //绑定客服
             socket.on('setCus',function(data){
@@ -176,12 +208,30 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
             });
             //没有客服在线
             socket.on('no',function(data){
-                $('#custom .left main').append($('<p/>').prop('class','cus').html(`<span>客服人员全躺尸了，暂时没有人能给予回复，请回去洗洗睡吧！</span><span>${time().hour}:${time().min}:${time().sec}</span>`));
+                var val = '客服人员全躺尸了，暂时没有人能给予回复，请回去洗洗睡吧！';
+                writeDown(val,'cus');
             });
+            //客服换人提示
+            socket.on('return',function(data){
+                var val = '原客服已阵亡，本网站表示已经免费帮你换一个客服聊天#0';
+                writeDown(val,'cus');
+                $('#custom .left main').attr('data-id','');
+            });
+            //用户下线
+            window.onunload = function(){
+                var cid = $('#custom .left main').attr('data-id');
+                var a = {
+                    id:cid,
+                    pic:pic
+                }
+                socket.emit('overUser',a);
+            }
             //信息写入
             function writeDown(val,attr){
                 val = val.replace(/#([0-9])/g,`<img src='imgs/$1.gif'/>`);
                 $('#custom .left main').append($('<p/>').prop('class',attr).html(`<span>${val}</span><span>${time().hour}:${time().min}:${time().sec}</span>`));
+                $main = $('#custom .left main');
+                $main.scrollTop($('#custom .left main')[0].scrollHeight);
             }
             //点击显示聊天窗口
             $('#online').click(function(){
