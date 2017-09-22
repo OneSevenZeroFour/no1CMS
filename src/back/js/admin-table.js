@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-13 16:07:35
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-21 20:03:24
+* @Last Modified time: 2017-09-22 10:41:24
 */
 
 var list = $("#list");
@@ -12,6 +12,7 @@ var ul = $('.am-pagination');
 var pages = 0;
 var prev = next = null;
 var first = true;
+var sor = $('#sort_sel');
 
 ul.on('click','li',function(){
     pages = Math.ceil(gs.html()/num);
@@ -49,13 +50,19 @@ ul.on('click','li',function(){
 });
 
 createList(page,num);
-
+sor.on('change',function(){
+  first = true;
+  createList(page,num);
+});
 //查
 function createList(p,n){
+  var obj = {page:p,num:n}
+  if(sor.val().toUpperCase()!="A")
+    obj.tag = sor.val().toUpperCase();
   $.ajax({
       url: 'http://localhost:3000/select',
       type: 'POST',
-      data: {page:p,num:n},
+      data: obj,
       success:function(data){
           var arr = JSON.parse(JSON.parse(data).data);
           var sum = JSON.parse(data).sum

@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-21 17:36:42
+* @Last Modified time: 2017-09-22 10:21:48
 */
 
 require(['./add-good','./admin-index'],function(wang,up){
@@ -110,14 +110,14 @@ require(['./add-good','./admin-index'],function(wang,up){
             time:time
         }  
              
-        // $.ajax({
-        //          url: 'http://localhost:3000/insert',
-        //          type: 'POST',
-        //          data: {obj: obj},
-        //          success:function(){
-        //             console.log('insert success');                         
-        //          }
-        //      });
+        $.ajax({
+                 url: 'http://localhost:3000/insert',
+                 type: 'POST',
+                 data: {obj: obj},
+                 success:function(){
+                    history.go(-1);     
+                 }
+             });
                                   
 
     });

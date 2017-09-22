@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-13 17:29:50
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-21 21:04:41
+* @Last Modified time: 2017-09-22 10:36:31
 */
 require(['./add-good','./admin-index'],function(wang,up){
     wang.init();
@@ -139,12 +139,7 @@ require(['./add-good','./admin-index'],function(wang,up){
         for(var i=0;i<i_arr.length;i++){
             imgs += i_arr.eq(i).attr('src').replace('../','');
             imgs += ';';
-        }
-
-        console.log(img);
-        console.log(imgs);
-             
-             
+        }     
         var arr = tags_p.find('.'+tags+' .on');
         if(arr)
             for(var i=0;i<arr.length;i++){
@@ -178,6 +173,8 @@ require(['./add-good','./admin-index'],function(wang,up){
         var obj = {
             id:idx,
             name:name,
+            img:img,
+            imgs:imgs,
             brand:brand,
             href:href,
             price:price==''?sale:price,
