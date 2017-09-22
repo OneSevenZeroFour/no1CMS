@@ -1,0 +1,304 @@
+<!doctype html>
+<html class="no-js">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Amaze UI Admin user Examples</title>
+        <meta name="description" content="这是一个 user 页面">
+        <meta name="keywords" content="user">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" type="text/css" href="./css/admin-edit-good.css" /> 
+
+    </head>
+
+    <body>
+        <!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand">
+                <strong>Amaze UI</strong> <small>后台管理模板</small>
+            </div>
+
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+            <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+                <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                    <li>
+                        <a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a>
+                    </li>
+                    <li class="am-dropdown" data-am-dropdown>
+                        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                            <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li>
+                                <a href="#"><span class="am-icon-user"></span> 资料</a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="am-icon-cog"></span> 设置</a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="am-icon-power-off"></span> 退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="am-hide-sm-only">
+                        <a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="am-cf admin-main">
+            <!-- sidebar start -->
+            <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+                <div class="am-offcanvas-bar admin-offcanvas-bar">
+                    <ul class="am-list admin-sidebar-list">
+                        <li>
+                            <a href="admin-index.html"><span class="am-icon-home"></span> 首页</a>
+                        </li>
+                        <li class="admin-parent">
+                            <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                                <li>
+                                    <a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a>
+                                </li>
+                                <li>
+                                    <a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a>
+                                </li>
+                                <li>
+                                    <a href="admin-gallery.html"><span class="am-icon-th"></span> 相册页面<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a>
+                                </li>
+                                <li>
+                                    <a href="admin-log.html"><span class="am-icon-calendar"></span> 系统日志</a>
+                                </li>
+                                <li>
+                                    <a href="admin-404.html"><span class="am-icon-bug"></span> 404</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="admin-table.html"><span class="am-icon-table"></span> 表格</a>
+                        </li>
+                        <li>
+                            <a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="am-icon-sign-out"></span> 注销</a>
+                        </li>
+                    </ul>
+
+                    <div class="am-panel am-panel-default admin-sidebar-panel">
+                        <div class="am-panel-bd">
+                            <p><span class="am-icon-bookmark"></span> 公告</p>
+                            <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
+                        </div>
+                    </div>
+
+                    <div class="am-panel am-panel-default admin-sidebar-panel">
+                        <div class="am-panel-bd">
+                            <p><span class="am-icon-tag"></span> wiki</p>
+                            <p>Welcome to the Amaze UI wiki!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar end -->
+
+            <!-- content start -->
+            <div class="admin-content">
+                <div class="admin-content-body">
+                        
+                   <!--  <form class="img_form" action="" name='img_form'>
+                        <label for="" class="label">封面图：</label>
+                        <input type="file" name='the_img' />
+                        <input type="button" value="上传" />
+                        <img src="" alt="" class='add_img'/>
+                    </form>
+ -->
+                    <p><span class="label">标题：</span>
+                    <input type="text" class="add_name" /></p>
+
+
+                    <p>
+                        <span class="label">品牌：</span>
+                        <input type="text" class="add_brand" />
+                   
+                        <span class="label">官方店铺：</span>
+                        <input type="text" class="add_href" />
+                    </p>
+                    
+                    <p>
+                        <label for="" class="label">原价：<input min='1' type="number" placeholder="￥" class="add_price money" /></label>
+                        <label for="" class="label">现价：<input min='1' type="number" placeholder="￥"  class="add_sale money" /></label>
+                    </p>
+
+                    <div class="tag_p">
+                        <span class="label">商品分类：
+                            <select name="tag_" id="add_tag">
+                                <option value="F">品质厨房</option>
+                                <option value="G">美食民生</option>
+                                <option value="H">健康生活</option>
+                                <option value="I">魅力穿戴</option>
+                                <option value="J">珠宝收藏</option>
+                                <option value="K">美肤靓妆</option>
+                            </select>
+                        </span>
+                        <div>
+                            <ul class='F'>
+                                <li class="tag">品质厨具</li>
+                                <li class="tag">厨房电器</li>
+                                <li class="tag">厨房用具</li>
+                            </ul>
+                            
+                            <ul class='G'>
+                                <li class="tag">进口食品</li>
+                                <li class="tag">营养保健</li>
+                                <li class="tag">特产零食</li>
+                                <li class="tag">粮油干货</li>
+                                <li class="tag">酒水茶饮</li>
+                            </ul>
+                            
+                            <ul class='H'>
+                                <li class="tag">优质睡眠</li>
+                                <li class="tag">家居装饰</li>
+                                <li class="tag">清洁收纳</li>
+                                <li class="tag">家庭健身</li>
+                                <li class="tag">生活电器</li>
+                                <li class="tag">日用配件</li>
+                            </ul>
+                            
+                            <ul class='I'>
+                                <li class="tag">服装内衣</li>
+                                <li class="tag">鞋包配饰</li>
+                                <li class="tag">旅游户外</li>
+                            </ul>
+                           
+                            <ul class='J'>
+                                <li class="tag">珍珠彩宝</li>
+                                <li class="tag">翡翠玉石</li>
+                                <li class="tag">天然木饰</li>
+                                <li class="tag">文化收藏</li>
+                            </ul>    
+                            
+                            <ul class='K'>
+                                <li class="tag">品牌护肤</li>
+                                <li class="tag">洗护护理</li>
+                                <li class="tag">彩妆香水</li>
+                                <li class="tag">美容仪器</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p><span class="label">是否TV商品：</span>
+                        <select name="tv" id="add_tv">
+                            <option value="">否</option>
+                            <option value="0">是</option>
+                        </select>
+                    </p>
+                    <p>
+                        <span class="label">简介：</span>
+                        <textarea name="" id="" cols="100" rows="3" class="add_det"></textarea>
+                    </p>
+
+                    <p>
+                        <span class="label">库存：</span><input type="number" class="add_stock" />
+                    </p>
+
+                    <p>
+                        <span class="label">商家：</span>
+                        <select name="seller" id="add_seller">
+                            <option value="0">TV商品</option>
+                            <option value="1">官网直供</option>
+                            <option value="2">商家直营</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <span class="label">包邮最低价：</span>
+                        <input type="number" style="width:150px" placeholder='如果有包邮(￥)' class="add_you_pay money" min='0' />
+                    </p>
+
+                    <p>
+                        <span class="label">赠品：</span>
+                        <input type="text" class="add_free" placeholder='如果没有请跳过' />
+                    </p>
+                    
+                    <p>
+                        <span class="label">TV立减：</span>
+                        <input type="number" placeholder='如果立减(￥)' class="add_sub money" min='0.01' />
+                    </p>
+                  <!--   <form name='imgs'>
+                        <label class="label">商品图：</label>
+                        <input type="file" multiple='multiple' />
+                        <input type="button" value="上传" />
+                    </form> -->
+
+                    <!-- <p><span class="label">商品规格：</span></p> -->
+                    <div>
+                        <span class="label">商品参数：</span><br />
+                        <textarea name="" id="" cols="120" rows="10" class="add_param"></textarea>
+                    </div>
+    
+                    <div>
+                        <span class="label">包装清单：</span><br />
+                        <textarea name="" id="" cols="120" rows="6" class="add_list"></textarea>
+                    </div>
+
+                    <div style="position: relative;">
+                        <span class="label">商品详情介绍：</span>
+                        <!-- 富文本编辑器 -->
+                        <div id="add_intro" class="text"></div>
+                        <button id="getTxt">getTxt</button>
+
+
+                    </div>
+
+                    <button id='add_bn'>确定添加</button>
+                </div>
+    
+                <footer class="admin-content-footer">
+                    <hr>
+                    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+                </footer>
+
+            </div>
+            <!-- content end -->
+
+        </div>
+
+        <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+        <footer>
+            <hr>
+            <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+        </footer>
+
+        <!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+        <!--[if (gte IE 9)|!(IE)]><!-->
+        <script src="assets/js/jquery.js"></script>
+        <!--<![endif]-->
+        <script src="assets/js/amazeui.min.js"></script>
+
+        <script src="assets/js/app.js"></script>
+        <script type="text/javascript" src="../lib/require.js" data-main='./js/admin-add-good.js'></script>
+    </body>
+
+</html>
