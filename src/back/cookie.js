@@ -13,7 +13,7 @@ var Cookie = {
         // 写入
         document.cookie = cookieStr;
     },
-    get:function(name){
+    get:function(cookie,name){
         // 先获取所有cookie
         var cookie = document.cookie;
         if(cookie.length === 0){

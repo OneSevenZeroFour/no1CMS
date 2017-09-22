@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-21 09:28:23
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 18:01:29
+* @Last Modified time: 2017-09-22 21:21:23
 */
 define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
 
@@ -28,7 +28,7 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
         var $cont = $('.w-e-text');
         for(var j = 0; j < $btn[0].files.length ; j++){
             imgArr.push($btn[0].files[j]);
-        }
+        } 
         for(var i = 0; i < $btn[0].files.length ; i++){
             formData.append('img',$btn[0].files[i]);            
         }
@@ -56,8 +56,18 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
         });
         
     });
+    $('#add_bn').click(didSaveImgs);
 
-
+    function didSaveImgs(){
+        $.ajax({
+            url: 'http://localhost:10086/didSaveImgs',
+            type: 'GET',
+            dataType: 'json'
+        })
+        .done(function() {
+            console.log("success");
+        });
+    }
 
     return editor;
 });

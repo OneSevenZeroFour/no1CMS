@@ -12,11 +12,13 @@ var Cookie = require('./cookie');
 //处理formData
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
+        // var userid = Cookie.get(req.header.cookie,'user');
         var userid = '1113';
         cb(null,"./back/tmp/shop"+userid);   
     },
     filename: function(req, file, cb){
         var fileFormat = file.originalname.split('.');
+        // var userid = Cookie.get(req.header.cookie,'user');
         var userid = '1113';
         cb(null,file.fieldname + '-shop' + userid + '-' + Date.now() + '.' + fileFormat[fileFormat.length-1]);
     }
@@ -51,6 +53,7 @@ function createTmp(app){
     app.get('/enterAddGood',function(req,res){
         var fls;
         var fileUrl = './back/tmp/';
+        // var userid = Cookie.get(req.header.cookie,'user');
         var userid = '1113';
         /*查看商家的图片缓存区是否存在*/
         fs.access(fileUrl+'shop' + userid,function(err){
@@ -71,11 +74,31 @@ function createTmp(app){
         res.send('success');
     });
 }
+function changeImgsPath(app){
+    app.get('/didSaveImgs',function(req,res){
+    var fileUrl = './back/tmp/';
+    var newUrl = './back/resource/';
+    // var userid = Cookie.get(req.header.cookie,'user');
+    var userid = '1113';
+        fs.readdir(fileUrl+'shop' + userid,function(err,files){
+            if (err) {console.log(err);return false;}
+            console.log(files);
+            files.forEach(function(item){
+                fs.rename(fileUrl+'shop'+userid+'/'+item,newUrl+'shop'+userid+'/'+item,function(err){
+                    if (err) {console.log(err)
+                         }
+                });
+            })
+                 
+        })
+    });
+}
 
 
 var obj = {
     createTmp: createTmp,
-    uploadImg: uploadImg
+    uploadImg: uploadImg,
+    changeImgsPath:changeImgsPath
 }
 
 module.exports = obj;
