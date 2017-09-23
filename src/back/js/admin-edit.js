@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-13 17:29:50
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 10:36:31
+* @Last Modified time: 2017-09-23 09:14:36
 */
 require(['./add-good','./admin-index'],function(wang,up){
     wang.init();
@@ -34,7 +34,7 @@ require(['./add-good','./admin-index'],function(wang,up){
     var list_p = $('.add_list'),list=null;
 
     $.ajax({
-        url: 'http://localhost:3000/select_one',
+        url: 'http://localhost:10086/select_one',
         type: 'POST',
         data: {id: idx},
         success:function(data){
@@ -193,7 +193,7 @@ require(['./add-good','./admin-index'],function(wang,up){
         }  
 
         $.ajax({
-            url: 'http://localhost:3000/update',
+            url: 'http://localhost:10086/update',
             type: 'POST',
             data: {obj:obj},
             success:function(data){

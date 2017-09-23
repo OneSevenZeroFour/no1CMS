@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-13 16:07:35
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 10:41:24
+* @Last Modified time: 2017-09-23 09:14:11
 */
 
 var list = $("#list");
@@ -46,7 +46,6 @@ ul.on('click','li',function(){
          
     if(page<=1) prev.addClass('am-disabled'); 
     else prev.removeClass('am-disabled');
-    console.log(next)
 });
 
 createList(page,num);
@@ -60,7 +59,7 @@ function createList(p,n){
   if(sor.val().toUpperCase()!="A")
     obj.tag = sor.val().toUpperCase();
   $.ajax({
-      url: 'http://localhost:3000/select',
+      url: 'http://localhost:10086/select',
       type: 'POST',
       data: obj,
       success:function(data){
@@ -107,7 +106,7 @@ function clickEdit(){
       if(n){
         var id = $(this).closest('tr').attr('good');
         $.ajax({
-              url: 'http://localhost:3000/delete',
+              url: 'http://localhost:10086/delete',
               type: 'POST',
               data: {idx: id},
               success:function(data){

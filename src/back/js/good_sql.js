@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-22 09:44:46
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 10:20:32
+* @Last Modified time: 2017-09-22 16:47:28
 */
 
 function mysqlFun(exp){
@@ -27,7 +27,9 @@ function mysqlFun(exp){
     // post/get/all 第一个参数是路由（完全匹配）
     // post获取参数 req.body  get获取参数 req.query
     exp.post('/select',function(req,res){
+    // exp.get('/select',function(req,res){
         res.append("Access-Control-Allow-Origin", "*");
+        // var obj = req.query;
         var obj = req.body;
         var start = (obj.page-1)*obj.num;
         var str = `select * from goodbase order by time desc limit ${start},${obj.num}`;

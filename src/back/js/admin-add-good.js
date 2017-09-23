@@ -2,11 +2,11 @@
 * @Author: Marte
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 10:21:48
+* @Last Modified time: 2017-09-23 09:14:57
 */
 
-require(['./add-good','./admin-index'],function(wang,up){
-    wang.init();         
+require(['./add-good','./admin-index'],function(wang,up){    
+    wang.init().log();   
     up.upload();
     var name_p = $('.add_name'),name = '';
     var brand_p = $('.add_brand'),brand = '其他';
@@ -111,7 +111,7 @@ require(['./add-good','./admin-index'],function(wang,up){
         }  
              
         $.ajax({
-                 url: 'http://localhost:3000/insert',
+                 url: 'http://localhost:10086/insert',
                  type: 'POST',
                  data: {obj: obj},
                  success:function(){
