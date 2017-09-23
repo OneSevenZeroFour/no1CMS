@@ -1,37 +1,9 @@
-// var express = require('express');
-
 var fs = require('fs');
 
 var multer = require('multer');
 
-var Cookie = require('./cookie');
 
-// app.use(express.static('../'));
-
-
-//处理formData
-var storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        // var userid = Cookie.get(req.header.cookie,'user');
-        var userid = '1113';
-        cb(null,"./back/tmp/shop"+userid);   
-    },
-    filename: function(req, file, cb){
-        var fileFormat = file.originalname.split('.');
-        // var userid = Cookie.get(req.header.cookie,'user');
-        var userid = '1113';
-        cb(null,file.fieldname + '-shop' + userid + '-' + Date.now() + '.' + fileFormat[fileFormat.length-1]);
-    }
-})
-
-var upload = multer({
-    storage: storage
-})
-
-
-
-
-function uploadImg(app){
+function uploadImg(app,userid){
     app.post('/uploadToTmp',upload.any(),function(req,res){
         res.set('Access-Control-Allow-Origin','*');
         console.log(req.files);
@@ -49,14 +21,14 @@ function uploadImg(app){
 }
 
 /*创建商家文件夹用于存放图片*/
-function createTmp(app){
+function createTmp(app,userid){
     app.get('/enterAddGood',function(req,res){
         res.set('Access-Control-Allow-Origin','*');
         var fls;
         var tmpUrl = './back/tmp/';
         var srcUrl = './back/resource/'
         // var userid = Cookie.get(req.header.cookie,'user');
-        var userid = '1113';
+        // var userid = '1113';
         var wrong = 0;
         /*查看商品的图片缓存区是否存在*/
         fs.access(tmpUrl+'shop' + userid,function(err){
@@ -81,13 +53,13 @@ function createTmp(app){
     });
 }
 /*保存临时图片至资源库*/
-function saveDetailImgs(app){
+function saveDetailImgs(app,userid){
     app.get('/didSaveImgs',function(req,res){
         res.set('Access-Control-Allow-Origin','*')
         var fileUrl = './back/tmp/';
         var newUrl = './back/resource/';
         // var userid = Cookie.get(req.header.cookie,'user');
-        var userid = '1113';
+        // var userid = '1113';
         fs.readdir(fileUrl+'shop' + userid,function(err,files){
             if (err) {
                 console.log(err);
@@ -117,14 +89,14 @@ function saveDetailImgs(app){
     });
 }
 /*删除未保存的临时图片*/
-function deleteTmpImgs(app){
+function deleteTmpImgs(app,userid){
     app.get('/didUnsaveImgs',function(req,res){
         console.log(333333);
              
         // res.set('Access-Control-Allow-Origin','*');
         var fileUrl = './back/tmp/';
         // var userid = Cookie.get(req.header.cookie,'user');
-        var userid = '1113';
+        // var userid = '1113';
         fs.readdir(fileUrl + 'shop' + userid,function(err,files){
             if (err) {
                 console.log(err);
@@ -150,21 +122,40 @@ function deleteTmpImgs(app){
         })
     })
 }
-function init(app){
-    createTmp(app);
-    uploadImg(app);
-    saveDetailImgs(app);
-    deleteTmpImgs(app);
+function init(app,userid){
+    //处理formData
+    var storage = multer.diskStorage({
+        destination: function(req, file, cb){
+            // var userid = Cookie.get(req.header.cookie,'user');
+            // var userid = '1113';
+            cb(null,"./back/tmp/shop"+userid);   
+        },
+        filename: function(req, file, cb){
+            var fileFormat = file.originalname.split('.');
+            // var userid = Cookie.get(req.header.cookie,'user');
+            // var userid = '1113';
+            cb(null,file.fieldname + '-shop' + userid + '-' + Date.now() + '.' + fileFormat[fileFormat.length-1]);
+        }
+    })
+
+    var upload = multer({
+        storage: storage
+    })
+    createTmp(app,userid);
+    uploadImg(app,userid);
+    saveDetailImgs(app,userid);
+    deleteTmpImgs(app,userid);
 }
 
 /*暴露模块方法*/
 /*引用后逐一调用*/
 var obj = {
-    init:init,
-    createTmp: createTmp,
+    /*外部代用init方法初始化*/
+    init:init
+/*    createTmp: createTmp,
     uploadImg: uploadImg,
     saveDetailImgs: saveDetailImgs,
-    deleteTmpImgs: deleteTmpImgs
+    deleteTmpImgs: deleteTmpImgs*/
 }
 
 module.exports = obj;
