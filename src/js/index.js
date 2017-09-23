@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-01 12:04:18
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-20 17:29:12
+* @Last Modified time: 2017-09-23 17:39:39
 */
 
 require(['config'],function(){
@@ -11,14 +11,20 @@ require(['config'],function(){
 // ----------------------------------load 公共模块 ------------------------------             
             $("#fixx").load("html/fix.html",function(){
                 fixjs.fixF();
+                fixjs.custom('o');
                 // 所有a的href 加html/
                 $('#fixx a').attr("href",function(){
                     return 'html/'+$(this).attr("href");
-                }); 
+                });
                 $("#fixx link").attr("href",function(){
                     return $(this).attr("href").replace("../","");
                 });
-
+                $('#online').attr('href','#');
+                $('#custom ._two img').each(function(){
+                    $(this).prop('src','html/'+$(this).attr('src'));
+                });
+                $('#custom .normal img').attr('src',$('#custom .normal img').attr('src').replace('../',''));
+                $('#cnm').remove();
             });
             $("#header").load("html/header.html",function(){
                 // img src不要../

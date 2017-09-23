@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-08 15:45:03
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-20 17:32:44
+* @Last Modified time: 2017-09-23 17:40:12
 */
 
 require(['config'],function(){
@@ -10,6 +10,7 @@ require(['config'],function(){
         $(document).ready(function(){
             $("#fixx").load("fix.html",function(){
                 fixjs.fixF();
+                fixjs.custom();
             });
             $("#header").load("header.html",function(){
                 hea.hea();

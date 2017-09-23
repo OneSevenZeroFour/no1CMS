@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-01 10:22:31
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-11 13:11:52
+* @Last Modified time: 2017-09-20 20:59:16
 */
 
 require.config({
@@ -15,7 +15,8 @@ require.config({
         da:'../js/datas',
         user:'../js/userdata',
         cookie:'../js/cookie',
-        fly:'../js/fly'
+        fly:'../js/fly',
+        socket:'../lib/socket'
     },shim:{
             "headjs": {
                 deps: ["jq"],
