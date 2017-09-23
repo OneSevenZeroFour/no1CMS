@@ -2,7 +2,11 @@
 * @Author: Marte
 * @Date:   2017-09-20 13:16:26
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-21 20:26:26
+<<<<<<< HEAD
+* @Last Modified time: 2017-09-23 15:42:20
+=======
+* @Last Modified time: 2017-09-21 11:11:13
+>>>>>>> lzh
 */
 .admin-content input,.admin-content button,.admin-content textarea,.admin-content select{
     outline: none;
@@ -74,6 +78,7 @@
 }
 .admin-content #add_intro{
     width: 94%;
+    position: relative;
 }
 .admin-content .if{
     margin-left: 2em;
@@ -157,3 +162,10 @@
 /*
 * user.html css
 */
+#getEditorHtml{
+    font-size: 12px;
+    width: 70px;
+    position: relative;
+    outline: none;  
+    z-index: 5;
+}
