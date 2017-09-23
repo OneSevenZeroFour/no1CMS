@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../css/master.css" />
+        <link rel="stylesheet" type="text/css" href="../css/carlist.css" />
+    </head>
+    <body>
+        <div id="fixx"></div>
+        <div id="header"></div>
+        <div id="main">
+            <div class="container">
+                <h2>
+                    <a href="../index.html" target="_blank">
+                        <img src="../imgs/logo.png" alt="" />
+                    </a>
+                    <div class="progress">
+                        <p class="first">
+                            <span class='pro_ico'>1</span>
+                            <span class="label">我的购物车</span>
+                        </p>
+                        <p class="mid">
+                            <span class='pro_ico'>2</span>
+                            <span class="label">确定订单信息</span>
+                        </p>
+                        <p class="complete">
+                            <span class='pro_ico'>3</span>
+                            <span class="label">提交订单</span>
+                        </p>
+                    </div>
+                </h2>
+                <div class="empty_div hide">
+                    <img src="../imgs/cart_empty.png" alt="" />
+                    <p class="cart_empty_tit">购物车空空的哟~
+                    <a href="../index.html">去挑选商品></a>
+                    </p>
+
+                    <p class="cart_empty_tip">
+                        登录后可以显示之前加入的数据
+                        <a href="login.html" target="_blank">登录</a>
+                    </p>
+                </div>
+                <div class="carlist">
+                    <p class="title">我的购物车</p>
+                    <div class="car_box">
+                        <ul class="tit_ul clear">
+                            <li class="check">
+                                <input checked="checked" type="checkbox" />全选
+                            </li>
+                            <li class="message">商品信息</li>
+                            <li class="price">单价（元）</li>
+                            <li class="num">数量</li>
+                            <li class="sum">小计（元）</li>
+                            <li class="del">操作</li>
+                        </ul>
+                        <ul class="car_ul">
+                            
+                        </ul>
+                        <div class="cart_count">
+                            <div class="count_div">
+                                <p>共<span class="how_many"></span>件商品<span class="txt">商品金额：</span><span class="number sum"></span></p>
+                                 <p><span class="txt">优惠金额：</span><span class="number save"></span></p>
+                                 <p><strong class="txt">实付金额：</strong><span class="number all_sum"></span></p>
+                            </div>
+                            <ul class="pay">                               
+                                <p class="choose">
+                                    <input type="checkbox" />全选
+                                </p>
+                                <p class="del_fix">
+                                    <span class="ico"></span>删除
+                                </p>
+                                <a class="topay" href="">立即结算</a>
+                                <div class="count_div">
+                                    <p>
+                                    共<span class="how_many"></span>件商品
+                                    <span class="txt">商品金额：</span><span class="number sum"></span>
+                                    <span class="txt">优惠金额：</span><span class="number save"></span><br />
+                                    <strong class="txt">实付金额：</strong><span class="number all_sum"></span></p>
+                                </div>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </body>
+    <script type="text/javascript" src="../lib/require.js" data-main="../js/carlist.js"></script>
+</html>
