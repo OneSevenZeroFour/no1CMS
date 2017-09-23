@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-02 12:04:42
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-23 17:07:42
+* @Last Modified time: 2017-09-23 18:02:15
 */
 
 define(['cookie','user','da','socket'],function(a,b,c,io){
@@ -167,7 +167,7 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                 $('#file').change(function(){
                     $.ajax({
                         type:"POST",
-                        url:"http://localhost:1337/file",
+                        url:"http://localhost:10086/file",
                         cache:false,
                         data:new FormData($('#uploadForm')[0]),
                         processData: false,
@@ -176,7 +176,7 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                             hell(data);
                         }
                     });
-                });
+                }); 
             }
 
             //发送消息

@@ -134,30 +134,4 @@ io.on('connection',function(socket){
 });
 server.listen(8888);
 
-
-var express = require('express');
-var multer = require('multer');
-var _name = [];
-var storage = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,'../html/imgs');
-    },
-    filename:function(req,file,cb){
-        var name = file.originalname.split('.');
-        var a = file.fieldname+'-'+Date.now()+Math.random()+'.'+name[name.length-1];
-        _name.push(a);
-        cb(null,a);
-    }
-});
-var upload = multer({
-    storage:storage
-});
-var app = express();
-app.post('/file',upload.any(),function(req,res,next){
-    res.append('Access-Control-Allow-Origin','*');
-    res.send(_name);
-    _name = [];
-});
-app.listen(1337);
-
 console.log('go')
