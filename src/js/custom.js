@@ -116,7 +116,7 @@ var socket = io('http://localhost:8888');
         $('#file').change(function(){
             $.ajax({
                 type:"POST",
-                url:"http://localhost:1337/file",
+                url:"http://localhost:10086/file",
                 cache:false,
                 data:new FormData($('#uploadForm')[0]),
                 processData: false,

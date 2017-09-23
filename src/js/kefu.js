@@ -95,8 +95,10 @@ io.on('connection',function(socket){
     });
     //客服下线，删除客服与其上传的图片
     socket.on('overCus',function(data){
+        console.log(data);
         if(data.length!=0){
             data.forEach(function(item){
+                item = item.replace('../','');
                 fs.unlink(item,function(err){
                     if(err){
                         return console.log(err);
@@ -114,9 +116,7 @@ io.on('connection',function(socket){
     socket.on('overUser',function(data){
         if(data.pic.length!=0){
             data.pic.forEach(function(item){
-                if(data.idx){
-                    item = '../'+item;
-                }
+                item = item.replace('../','');
                 fs.unlink(item,function(err){
                     if(err){
                         return console.log(err);
