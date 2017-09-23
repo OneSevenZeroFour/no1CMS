@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-21 09:28:23
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 21:21:23
+* @Last Modified time: 2017-09-23 15:03:14
 */
 define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
 
@@ -11,6 +11,7 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
     
     var imgArr = [];
 
+    /*添加自定义 上传图片 按钮*/
     var $btn = $('<input>').attr({
         id: 'getEditorHtml',
         type: 'file',
@@ -20,8 +21,7 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
     });
     $('.w-e-toolbar').append($btn);
     $('#getTxt').click(function(){
-        console.log(editor.txt.html())
-             
+        console.log(editor.txt.html()) 
     });
     $btn.change(function(event) {
         var formData = new FormData();  
@@ -54,20 +54,58 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
                 editor.txt.html(editor.txt.html().slice(0,-8)+img+'<br></p>');
             });
         });
-        
     });
-    $('#add_bn').click(didSaveImgs);
 
+    /*删除未保存的临时图片*/
+    function didUnsaveImgs(){
+        $.ajax({
+            url: 'http://localhost:10086/didUnsaveImgs',
+            type: 'GET',
+            dataType: 'json',
+        })
+        .done(function() {
+            console.log("success");
+        })
+        .fail(function() {
+            console.log("error");
+        });        
+    }
+    /*保存临时图片至*/
+    /*必须在操作数据库前调用*/
     function didSaveImgs(){
+        console.log('didSaveImg');
+             
         $.ajax({
             url: 'http://localhost:10086/didSaveImgs',
             type: 'GET',
             dataType: 'json'
         })
-        .done(function() {
-            console.log("success");
+        .done(function(data) {
+
+            console.log(data['status']);
+            var oldHTML = editor.txt.html();
+            var reg = /<img[^>]+>/g;
+            var tmps = oldHTML.match(reg);
+            var news = tmps.map(function(item){
+                return item.replace(data['data']['oldPath'],data['data']['newPath']);
+            });
+            var newHTML = oldHTML;
+            for(let i = 0; i < tmps.length ; i++){
+                newHTML = newHTML.replace(tmps[i],news[i]);
+            }
+            editor.txt.html(newHTML);
+            // tmps.forEach()
+            // oldHTML.replace('')
+            console.log(tmps)
+                 
+        })
+        .fail(function(){
+            console.log("error");   
         });
     }
 
+    /*导出处理图片的方法*/
+    editor.didSaveImgs = didSaveImgs;
+    editor.didUnsaveImgs = didUnsaveImgs;
     return editor;
 });

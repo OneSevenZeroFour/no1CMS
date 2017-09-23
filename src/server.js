@@ -2,11 +2,14 @@ var express = require('express');
 
 var app = express();
 
-var lz = require('./back/app.js');
+var editor = require('./back/editor.js');
 
-lz.createTmp(app);
-lz.uploadImg(app);
-lz.changeImgsPath(app);
+/*editor.createTmp(app);
+editor.uploadImg(app);
+editor.saveDetailImgs(app);
+editor.deleteTmpImgs(app);*/
+
+editor.init(app);
 
 app.use(express.static('./'));
 

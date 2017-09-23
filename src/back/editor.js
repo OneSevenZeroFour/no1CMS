@@ -1,0 +1,170 @@
+// var express = require('express');
+
+var fs = require('fs');
+
+var multer = require('multer');
+
+var Cookie = require('./cookie');
+
+// app.use(express.static('../'));
+
+
+//处理formData
+var storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        // var userid = Cookie.get(req.header.cookie,'user');
+        var userid = '1113';
+        cb(null,"./back/tmp/shop"+userid);   
+    },
+    filename: function(req, file, cb){
+        var fileFormat = file.originalname.split('.');
+        // var userid = Cookie.get(req.header.cookie,'user');
+        var userid = '1113';
+        cb(null,file.fieldname + '-shop' + userid + '-' + Date.now() + '.' + fileFormat[fileFormat.length-1]);
+    }
+})
+
+var upload = multer({
+    storage: storage
+})
+
+
+
+
+function uploadImg(app){
+    app.post('/uploadToTmp',upload.any(),function(req,res){
+        res.set('Access-Control-Allow-Origin','*');
+        console.log(req.files);
+        var arr  = [];
+        for(var i = 0 ;i < req.files.length ; i++){
+            arr.push(req.files[i]);
+        }
+        console.log(JSON.stringify(arr));
+             
+        res.send(JSON.stringify({
+            status:'success',
+            data:arr
+        }));
+    })    
+}
+
+/*创建商家文件夹用于存放图片*/
+function createTmp(app){
+    app.get('/enterAddGood',function(req,res){
+        res.set('Access-Control-Allow-Origin','*');
+        var fls;
+        var tmpUrl = './back/tmp/';
+        var srcUrl = './back/resource/'
+        // var userid = Cookie.get(req.header.cookie,'user');
+        var userid = '1113';
+        var wrong = 0;
+        /*查看商品的图片缓存区是否存在*/
+        fs.access(tmpUrl+'shop' + userid,function(err){
+            if (err) {
+                /*若不存在则创建一个商家id命名的文件夹*/
+                fs.mkdir(tmpUrl+'shop' + userid ,0777,function(error){
+                  if (error) {console.log('创建失败')}
+                    wrong = 1;
+                });
+                fs.mkdir(srcUrl+'shop' + userid ,0777,function(error){
+                  if (error) {console.log('创建失败')}
+                    wrong = 1;
+                })
+            }
+            if (wrong === 0) {
+                res.send('success');        
+            }else{
+                res.send('fail');
+            }
+
+        })           
+    });
+}
+/*保存临时图片至资源库*/
+function saveDetailImgs(app){
+    app.get('/didSaveImgs',function(req,res){
+        res.set('Access-Control-Allow-Origin','*')
+        var fileUrl = './back/tmp/';
+        var newUrl = './back/resource/';
+        // var userid = Cookie.get(req.header.cookie,'user');
+        var userid = '1113';
+        fs.readdir(fileUrl+'shop' + userid,function(err,files){
+            if (err) {
+                console.log(err);
+                res.send(JSON.stringify({'status':'fail'}));
+                return false;
+            }
+            console.log(files);
+            var errArr = [];
+            files.forEach(function(item){
+                fs.rename(fileUrl+'shop'+userid+'/'+item,newUrl+'shop'+userid+'/'+item,function(err){
+                    if (err) {
+                        console.log(err)
+                        errArr.push(err);
+                    }
+                });
+            })
+            if (errArr.length > 0) {
+                res.send(JSON.stringify({'status':'fail'}));
+            }else{
+                res.send(JSON.stringify({'status':'success','data':{
+                    oldPath:'tmp',
+                    newPath:'resource'
+                }}));
+            }
+                 
+        })
+    });
+}
+/*删除未保存的临时图片*/
+function deleteTmpImgs(app){
+    app.get('/didUnsaveImgs',function(req,res){
+        console.log(333333);
+             
+        // res.set('Access-Control-Allow-Origin','*');
+        var fileUrl = './back/tmp/';
+        // var userid = Cookie.get(req.header.cookie,'user');
+        var userid = '1113';
+        fs.readdir(fileUrl + 'shop' + userid,function(err,files){
+            if (err) {
+                console.log(err);
+                res.send(JSON.stringify({'status':'fail'}));
+                return false;
+            }   
+            var errArr = [];
+            files.forEach(function(item){    
+                fs.unlink(fileUrl + 'shop' + userid+ "/" + item ,function(err){
+                    if (err) {
+                        console.log(err);
+                        errArr.push(err);
+                    }
+                });
+            });
+            if (errArr.length>0) {
+                res.send(JSON.stringify({'status':'fail'}));
+                return false;
+            }else{
+                res.send(JSON.stringify({'status':'success'}));
+            }
+
+        })
+    })
+}
+function init(app){
+    createTmp(app);
+    uploadImg(app);
+    saveDetailImgs(app);
+    deleteTmpImgs(app);
+}
+
+/*暴露模块方法*/
+/*引用后逐一调用*/
+var obj = {
+    init:init,
+    createTmp: createTmp,
+    uploadImg: uploadImg,
+    saveDetailImgs: saveDetailImgs,
+    deleteTmpImgs: deleteTmpImgs
+}
+
+module.exports = obj;

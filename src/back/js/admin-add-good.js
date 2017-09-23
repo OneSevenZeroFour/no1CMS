@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 17:01:30
+* @Last Modified time: 2017-09-23 14:29:34
 */
 
 
@@ -19,6 +19,13 @@ require(['add-good','../../lib/jquery-3.2.1.min'],function(editor){
         });  
     });
 
+    window.onunload = function(){
+        editor.didUnsaveImgs();
+    }
+    window.onbeforeunload = function(){
+        editor.didUnsaveImgs();
+    }
+    $('#add_bn').click(editor.didSaveImgs)
     return {
         goodadd:function(){
             var name_p = $('.add_name'),name = '';
