@@ -2,23 +2,8 @@ var fs = require('fs');
 
 var multer = require('multer');
 
-
-function uploadImg(app,userid){
-    app.post('/uploadToTmp',upload.any(),function(req,res){
-        res.set('Access-Control-Allow-Origin','*');
-        console.log(req.files);
-        var arr  = [];
-        for(var i = 0 ;i < req.files.length ; i++){
-            arr.push(req.files[i]);
-        }
-        console.log(JSON.stringify(arr));
-             
-        res.send(JSON.stringify({
-            status:'success',
-            data:arr
-        }));
-    })    
-}
+var storage;
+var upload;
 
 /*创建商家文件夹用于存放图片*/
 function createTmp(app,userid){
@@ -122,9 +107,27 @@ function deleteTmpImgs(app,userid){
         })
     })
 }
-function init(app,userid){
+
+function uploadImg(app,userid){
+    app.post('/uploadToTmp',upload.any(),function(req,res){
+        res.set('Access-Control-Allow-Origin','*');
+        console.log(req.files);
+        var arr  = [];
+        for(var i = 0 ;i < req.files.length ; i++){
+            arr.push(req.files[i]);
+        }
+        console.log(JSON.stringify(arr));
+             
+        res.send(JSON.stringify({
+            status:'success',
+            data:arr
+        }));
+    })    
+}
+
+function initAddGood(app,userid){
     //处理formData
-    var storage = multer.diskStorage({
+    storage = multer.diskStorage({
         destination: function(req, file, cb){
             // var userid = Cookie.get(req.header.cookie,'user');
             // var userid = '1113';
@@ -138,7 +141,31 @@ function init(app,userid){
         }
     })
 
-    var upload = multer({
+    upload = multer({
+        storage: storage
+    })
+    createTmp(app,userid);
+    uploadImg(app,userid);
+    saveDetailImgs(app,userid);
+    deleteTmpImgs(app,userid);
+}
+function init(app,userid){
+    //处理formData
+    storage = multer.diskStorage({
+        destination: function(req, file, cb){
+            // var userid = Cookie.get(req.header.cookie,'user');
+            // var userid = '1113';
+            cb(null,"./back/tmp/shop"+userid);   
+        },
+        filename: function(req, file, cb){
+            var fileFormat = file.originalname.split('.');
+            // var userid = Cookie.get(req.header.cookie,'user');
+            // var userid = '1113';
+            cb(null,file.fieldname + '-shop' + userid + '-' + Date.now() + '.' + fileFormat[fileFormat.length-1]);
+        }
+    })
+
+    upload = multer({
         storage: storage
     })
     createTmp(app,userid);
