@@ -2,12 +2,11 @@
 * @Author: Marte
 * @Date:   2017-09-13 17:29:50
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-23 15:27:26
+* @Last Modified time: 2017-09-23 20:51:13
 */
-require(['./add-good','./admin-index'],function(wang,upp){
-    wang.init();
-    upp.upF();
+require(['./add-good','./admin-index'],function(editor,up){
     var idx = location.search.slice(1).split('=')[1];
+    up.upF();
     var name_p = $('.add_name'),name = '';
 
     var img_p = $('.edit_img'),img='';

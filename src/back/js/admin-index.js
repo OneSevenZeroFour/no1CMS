@@ -7,18 +7,7 @@
  * by:lfp
  * time:2017年9月21日11:23:43
  */
-// require.config({
-// 	urlArgs:'v='+Date.now(),
-// 	paths:{
-// 		jq:"../assets/js/jquery.min",
-// 		amazeui:"../assets/js/amazeui.min",
-// 		app:"../assets/js/app",
-// 	},
-// 	shim:{
-// 		amazeui:['jq'],
-// 		app:['jq']
-// 	}
-// });
+
 define(function(){
     return {
         upF:function(){
@@ -167,7 +156,7 @@ define(function(){
                                         selfer.value = "";
                                         $(btn).attr("disabled","disabled");
                                         formData.delete(ckUserName);//清空加载的文件
-                                        alert("图片上传成功！");
+                                        // alert("图片上传成功！");
 
                                     }
                                     if(datas.faceimg){
@@ -226,21 +215,5 @@ define(function(){
                 } 
         }
     }
-   
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

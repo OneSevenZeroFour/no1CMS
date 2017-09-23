@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 #过滤文件夹
 node_modules/
 imgs/
+=======
+﻿#过滤文件夹
+node_modules/
+
+>>>>>>> be76d84a936013851c42337d43e79d421354c563
 sass/

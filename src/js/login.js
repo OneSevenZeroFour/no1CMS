@@ -2,7 +2,11 @@
 * @Author: Marte
 * @Date:   2017-09-04 17:56:32
 * @Last Modified by:   Marte
+<<<<<<< HEAD
 * @Last Modified time: 2017-09-23 15:10:22
+=======
+* @Last Modified time: 2017-09-11 13:22:06
+>>>>>>> be76d84a936013851c42337d43e79d421354c563
 */
 
 require(['config'],function(){
@@ -91,11 +95,15 @@ require(['config'],function(){
                               day.setYear(day.getFullYear()+10);
                               cc.exp = day.toUTCString();
                               cc.set();
+<<<<<<< HEAD
 
+=======
+>>>>>>> be76d84a936013851c42337d43e79d421354c563
                             }else{//不记住
                               cc.name = 'username';//删除用户名cookie
                               cc.del();
                             }
+<<<<<<< HEAD
                               //发送请求 查看用户等级是否为商家管理员 by:lfp
                               $.ajax({
                                 url:"http://localhost:10086/searchVIP",
@@ -113,6 +121,9 @@ require(['config'],function(){
                                   
                                 }
                               })                            
+=======
+                            window.location.href = 'user.html';
+>>>>>>> be76d84a936013851c42337d43e79d421354c563
                         }else{
                             wr.show();//提示密码错误
                             psd.css('border-color',"red");

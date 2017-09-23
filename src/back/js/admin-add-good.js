@@ -2,11 +2,11 @@
 * @Author: Marte
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-23 15:34:17
+<<<<<<< HEAD
+* @Last Modified time: 2017-09-23 21:03:05
 */
 
-require(['./add-good','./admin-index'],function(wang,upp){    
-    wang.init().log();   
+require(['./add-good','./admin-index'],function(editor,upp){     
     upp.upF();
     var name_p = $('.add_name'),name = '';
     var brand_p = $('.add_brand'),brand = '其他';
@@ -50,7 +50,25 @@ require(['./add-good','./admin-index'],function(wang,upp){
     tags_p.on('click','.tag',function(){
         $(this).toggleClass('on');
     });
+    var $getHtmlBtn = $('#getEditorHtml');
+    $getHtmlBtn.click(function(event) {
+        console.log(editor.txt.html())
+        $.ajax({
+            url: 'http://localhost:10086/enterAddGood',
+            dataType: 'json',
+        })
+        .done(function() {
+            console.log("success");
+        });  
+    });
 
+    window.onunload = function(){
+        editor.didUnsaveImgs();
+    }
+    window.onbeforeunload = function(){
+        editor.didUnsaveImgs();
+    }
+    // $('#add_bn').click(editor.didSaveImgs)
     $("#add_bn").on('click',function(e){
         e.preventDefault();
         
@@ -121,4 +139,6 @@ require(['./add-good','./admin-index'],function(wang,upp){
                                   
 
     });
+
+ 
 });

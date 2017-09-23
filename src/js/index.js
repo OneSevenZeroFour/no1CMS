@@ -2,7 +2,11 @@
 * @Author: Marte
 * @Date:   2017-09-01 12:04:18
 * @Last Modified by:   Marte
+<<<<<<< HEAD
 * @Last Modified time: 2017-09-20 17:29:12
+=======
+* @Last Modified time: 2017-09-23 17:39:39
+>>>>>>> be76d84a936013851c42337d43e79d421354c563
 */
 
 require(['config'],function(){
@@ -11,6 +15,7 @@ require(['config'],function(){
 // ----------------------------------load 公共模块 ------------------------------             
             $("#fixx").load("html/fix.html",function(){
                 fixjs.fixF();
+<<<<<<< HEAD
                 // 所有a的href 加html/
                 $('#fixx a').attr("href",function(){
                     return 'html/'+$(this).attr("href");
@@ -19,6 +24,22 @@ require(['config'],function(){
                     return $(this).attr("href").replace("../","");
                 });
 
+=======
+                fixjs.custom('o');
+                // 所有a的href 加html/
+                $('#fixx a').attr("href",function(){
+                    return 'html/'+$(this).attr("href");
+                });
+                $("#fixx link").attr("href",function(){
+                    return $(this).attr("href").replace("../","");
+                });
+                $('#online').attr('href','#');
+                $('#custom ._two img').each(function(){
+                    $(this).prop('src','html/'+$(this).attr('src'));
+                });
+                $('#custom .normal img').attr('src',$('#custom .normal img').attr('src').replace('../',''));
+                $('#cnm').remove();
+>>>>>>> be76d84a936013851c42337d43e79d421354c563
             });
             $("#header").load("html/header.html",function(){
                 // img src不要../

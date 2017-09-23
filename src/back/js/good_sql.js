@@ -2,11 +2,12 @@
 * @Author: Marte
 * @Date:   2017-09-22 09:44:46
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-23 14:51:41
+<<<<<<< HEAD
+* @Last Modified time: 2017-09-23 20:45:05
 */
 
 function mysqlFun(exp,connection){
-         
+    
     // 用于处理 JSON, Raw, Text 和 URL 编码的数据
     var body_parser = require('body-parser');
     var querystring = require('querystring');
