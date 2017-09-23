@@ -3,6 +3,7 @@ var http = require('http');
 var ioFunc = require('socket.io');
 var server = http.createServer();
 var io = ioFunc(server);
+//记录每个客服当前接客数
 var cus = [];
 io.on('connection',function(socket){
     //用户发给客服
@@ -76,6 +77,15 @@ io.on('connection',function(socket){
             });
         }
     });
+    //客服怼用户
+    socket.on('tUser',function(data){
+        cus.forEach(function(item){
+            if(item[0]==socket.id){
+                item[1]--;
+            }
+        });
+        io.sockets.sockets[data].emit('getOut',socket.id);
+    });
     //添加客服
     socket.on('addCus',function(data){
         var a = [];
@@ -85,7 +95,6 @@ io.on('connection',function(socket){
     });
     //客服下线，删除客服与其上传的图片
     socket.on('overCus',function(data){
-        console.log(data,data.length)
         if(data.length!=0){
             data.forEach(function(item){
                 fs.unlink(item,function(err){
@@ -105,6 +114,9 @@ io.on('connection',function(socket){
     socket.on('overUser',function(data){
         if(data.pic.length!=0){
             data.pic.forEach(function(item){
+                if(data.idx){
+                    item = '../'+item;
+                }
                 fs.unlink(item,function(err){
                     if(err){
                         return console.log(err);

@@ -89,8 +89,14 @@ ul{list-style: none;}
 #custom .left .user{
     
 }
+#custom .left .user span:first-child{
+    background-color: #FFE4E1;
+}
 #custom .left .self{
     text-align:right;
+}
+#custom .left .self span:first-child{
+    background-color: #F5FFFA;
 }
 #custom .left>div{
     height:30px;
@@ -216,6 +222,21 @@ ul{list-style: none;}
     font-size:12px;
     line-height:30px;
     color:#999;
+}
+#custom .right p span{
+    margin-right:6px;
+    margin-top:5px;
+    border-radius:50%;
+    display:inline-block;
+    width:18px;
+    height:18px;
+    text-align:center;
+    line-height:18px;
+    border:1px solid #666;
+    background:#FF4500;
+    color:#fff;
+    cursor:pointer;
+    float:right;
 }
 #custom .toMin{
     width:214px;

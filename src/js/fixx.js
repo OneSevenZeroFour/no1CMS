@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-02 12:04:42
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-22 21:10:59
+* @Last Modified time: 2017-09-23 17:07:42
 */
 
 define(['cookie','user','da','socket'],function(a,b,c,io){
@@ -72,7 +72,7 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
             });
             
         },//fixF
-        custom:function(){
+        custom:function(o){
             var other = '';
             var flag = true;
             var _left = '';
@@ -107,12 +107,13 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
 
                 //缩小、放大、关闭
                 $('#custom>p').click(function(e){
+                    var url = o? '':'../';
                     if(e.target.className=='min'){
                         other = $('#custom').html();
                         _left = parseInt($('#custom').css('left'));
                         _top = parseInt($('#custom').css('top'));
                         $('#custom').animate({'width':214,'height':46,'left':window.innerWidth-214,'top':window.innerHeight-46},function(){
-                            $('#custom').html(`<p class='toMin'><img src='../imgs/kefu.jpg'/><span>琪琪</span></p>`).css({'border':'1px solid #c8c7c6','border-radius':'0'});
+                            $('#custom').html(`<p class='toMin'><img src='${url}imgs/kefu.jpg'/><span>琪琪</span></p>`).css({'border':'1px solid #c8c7c6','border-radius':'0'});
                             flag = false;
                         });
                     }else if(e.target.className=='max'){
@@ -138,14 +139,13 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
 
                 //发送信息
                 $('#send').click(function(){
-                    $text = $(this).closest('footer').prev();
-                    var cid = $('#custom .left main').attr('data-id');
-                    socket.emit('userSend',{
-                        id:cid,
-                        msg:$text.val()
-                    });
-                    writeDown($text.val(),'self');
-                    $text.val('').focus();
+                    toSend($(this));
+                });
+                $('#custom .left textarea').keydown(function(e){
+                    if(e.keyCode==13){
+                        e.preventDefault();
+                        toSend($('#send'));
+                    }
                 });
 
                 //表情框显示
@@ -179,11 +179,25 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                 });
             }
 
+            //发送消息
+            function toSend(ele){
+                $text = ele.closest('footer').prev();
+                var cid = $('#custom .left main').attr('data-id');
+                socket.emit('userSend',{
+                    id:cid,
+                    msg:$text.val()
+                });
+                writeDown($text.val(),'self');
+                $text.val('').focus();
+            }
+
             //地狱、保存上传过的图片的路径并写入页面
             function hell(data){
+                var url = o? 'html/':'';
+                var _url = o? '':'../';
                 data.forEach(function(item){
-                    pic.push('../html/imgs/'+item);
-                    writeDown('<img src="imgs/'+item+'">','self');
+                    pic.push(_url+'html/imgs/'+item);
+                    writeDown('<img src="'+url+'imgs/'+item+'">','self','a');
                     var cid = $('#custom .left main').attr('data-id');
                     socket.emit('userSend',{
                         id:cid,
@@ -217,6 +231,12 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                 writeDown(val,'cus');
                 $('#custom .left main').attr('data-id','');
             });
+            //被客服飞
+            socket.on('getOut',function(data){
+                $('#custom .left main').append($('<h4/>').html(`<span>---------- 本次会话已结束！----------</span><span>${time().hour}:${time().min}:${time().sec}</span>`)).attr('data-id','');
+                $main = $('#custom .left main');
+                $main.scrollTop($('#custom .left main')[0].scrollHeight);
+            });
             //用户下线
             window.onunload = function(){
                 var cid = $('#custom .left main').attr('data-id');
@@ -224,11 +244,21 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                     id:cid,
                     pic:pic
                 }
+                if(o){
+                    a.idx = true;
+                }
                 socket.emit('overUser',a);
             }
             //信息写入
-            function writeDown(val,attr){
-                val = val.replace(/#([0-9])/g,`<img src='imgs/$1.gif'/>`);
+            function writeDown(val,attr,a){
+                if(o){
+                    val = val.replace(/#([0-9])/g,`<img src='imgs/$1.gif'/>`);
+                    if(!a){
+                        val = val.replace('imgs/','html/imgs/');
+                    }
+                }else{
+                    val = val.replace(/#([0-9])/g,`<img src='imgs/$1.gif'/>`);
+                }
                 $('#custom .left main').append($('<p/>').prop('class',attr).html(`<span>${val}</span><span>${time().hour}:${time().min}:${time().sec}</span>`));
                 $main = $('#custom .left main');
                 $main.scrollTop($('#custom .left main')[0].scrollHeight);
