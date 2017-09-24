@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-05 12:04:09
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-20 17:31:26
+* @Last Modified time: 2017-09-24 12:49:06
 */
 
 require(["config"],function(){
@@ -326,7 +326,8 @@ require(["config"],function(){
         tabs.eq(1).find(".com_num").html('('+obj.comments+')');
          
         // 默认显示详情
-        de_.find("img").attr('src','../'+obj.de_imgs);
+        // de_.find("img").attr('src','../'+obj.de_imgs);
+        de_.html(obj.de_imgs);
         var liss = de_.find(".det_table .li_t");
         liss.eq(0).html(obj.name).end().eq(1).html(obj.brand).end().eq(2).html(obj.time.split(" ",1)).end().eq(3).html(obj.param.replace(/@/ig,"<br />")).end().eq(4).html(obj.list.replace(/@/ig,"<br />"));
         if(obj.param=='') $(".param_li").hide();     

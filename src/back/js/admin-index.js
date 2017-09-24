@@ -78,37 +78,37 @@ define(function(){
 
 
               var xhr = new XMLHttpRequest();
-              surface.on("change",function(){
-                    // 遍历判断格式
-                    var files = this.files;
-                    var selfer = this;
-                    judgeType(files);
-                    //图片预览
-                    // console.log(window.URL.createObjectURL(files[0]))
+              // surface.on("change",function(){
+              //       // 遍历判断格式
+              //       var files = this.files;
+              //       var selfer = this;
+              //       judgeType(files);
+              //       //图片预览
+              //       // console.log(window.URL.createObjectURL(files[0]))
 
-                    var imgStr = "";
-                    //将正确格式写入 FormData 对象
-                    for(var i=0;i<files.length;i++){
-                        imgStr += `<img src="${window.URL.createObjectURL(files[i])}" alt="图片预览"/>`;
-                        newDataFace.append(ckUserName,files[i]);
-                    }
-                    $(".showImgtp").html(imgStr);
+              //       var imgStr = "";
+              //       //将正确格式写入 FormData 对象
+              //       for(var i=0;i<files.length;i++){
+              //           imgStr += `<img src="${window.URL.createObjectURL(files[i])}" alt="图片预览"/>`;
+              //           newDataFace.append(ckUserName,files[i]);
+              //       }
+              //       $(".showImgtp").html(imgStr);
 
-                    btnSurface.attr("disabled",false);
-                    btnSurface[0].onclick = function(){
-                        if(typeFlag){
-                            if(confirm("确认提交")){
-                                var btn = this;
-                                var formData = newDataFace;
-                                xhrRequest(selfer,btn,formData);
-                                xhr.open("post","http://localhost:10086/pushImgs",true);
-                                xhr.send(newDataFace);
-                                // newDataFace.delete(ckUserName);
-                                // //清空加载的文件 这里清空会出现 图片不能正常上传成功
-                            }
-                        }
-                    }
-              });
+              //       // btnSurface.attr("disabled",false);
+              //       // btnSurface[0].onclick = function(){
+              //       //     if(typeFlag){
+              //       //         // if(confirm("确认提交")){
+              //       //             var btn = this;
+              //       //             var formData = newDataFace;
+              //       //             xhrRequest(selfer,btn,formData);
+              //       //             xhr.open("post","http://localhost:10086/pushImgs",true);
+              //       //             xhr.send(newDataFace);
+              //       //             // newDataFace.delete(ckUserName);
+              //       //             // //清空加载的文件 这里清空会出现 图片不能正常上传成功
+              //       //         // }
+              //       //     }
+              //       // }
+              // });
               /*----------------------------------------*/
               goodsImg.on("change",function(){
                     // 遍历判断格式
@@ -130,15 +130,15 @@ define(function(){
                     btnGoods[0].onclick = function(){
                         console.log(999)
                         if(typeFlag){
-                            if(confirm("确认提交")){
+                            // if(confirm("确认提交")){
                                 var btn = this;
                                 var formData = newDataGz;
                                 xhrRequest(selfer,btn,formData);
                                 xhr.open("post","http://localhost:10086/pushgzImg",true);
                                 xhr.send(newDataGz);
-                            }else{
-                                return false;
-                            } 
+                            // }else{
+                            //     return false;
+                            // } 
                         } 
                     }
               });

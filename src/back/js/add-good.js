@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-21 09:28:23
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-23 20:28:09
+* @Last Modified time: 2017-09-24 12:30:12
 */
 
 define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
@@ -45,9 +45,9 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
         })
         .done(function(res) {
             var arr = JSON.parse(res)['data'];
-            console.log(arr);
+            // console.log(arr);
             arr.forEach(function(item){
-                console.log(item);
+                // console.log(item);
                      
                 var img = `<img src="http://localhost:10086/${item.destination}/${item.filename}" />`;
                 // console.log(img);
@@ -97,7 +97,7 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
             editor.txt.html(newHTML);
             // tmps.forEach()
             // oldHTML.replace('')
-            console.log(tmps)
+            // console.log(tmps)
                  
         })
         .fail(function(){

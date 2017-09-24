@@ -3,7 +3,7 @@
 * @Date:   2017-09-22 09:44:46
 * @Last Modified by:   Marte
 <<<<<<< HEAD
-* @Last Modified time: 2017-09-23 20:45:05
+* @Last Modified time: 2017-09-24 12:37:14
 */
 
 function mysqlFun(exp,connection){
@@ -44,10 +44,10 @@ function mysqlFun(exp,connection){
         res.append("Access-Control-Allow-Origin", "*");
         var obj = req.body.obj;
            
-        connection.query(`insert into goodbase (name,price,sale,tag,stock,det,seller,you,time) values ("${obj.name}","${obj.price}","${obj.sale}","${obj.tag}","${obj.stock}","${obj.det}","${obj.seller}","${obj.you}","${obj.time}")`,function(err,ress,field){
+        connection.query(`insert into goodbase (name,img,price,sale,tag,stock,det,seller,you,time) values ("${obj.name}","${obj.img}","${obj.price}","${obj.sale}","${obj.tag}","${obj.stock}","${obj.det}","${obj.seller}","${obj.you}","${obj.time}")`,function(err,ress,field){
                 if(err) throw err;
                 console.log('goodbase insert success');
-                connection.query(`insert into gooddetails (id,seller,brand,href,time,param,list,free,sub,deli) values (${ress.insertId},"${obj.seller}","${obj.brand}","${obj.href}","${obj.time}","${obj.param}","${obj.list}","${obj.free}","${obj.sub}","${obj.deli}")`,function(err,ress,field){
+                connection.query(`insert into gooddetails (id,imgs,seller,brand,href,time,param,list,de_imgs,free,sub,deli) values (${ress.insertId},"${obj.imgs}","${obj.seller}","${obj.brand}","${obj.href}","${obj.time}","${obj.param}","${obj.list}","${obj.de_imgs}","${obj.free}","${obj.sub}","${obj.deli}")`,function(err,ress,field){
                     if(err) throw err;
                     console.log('gooddetails insert success');                     
                     res.send(JSON.stringify(ress));
@@ -63,10 +63,11 @@ function mysqlFun(exp,connection){
     }).post('/update',function(req,res){
         res.append("Access-Control-Allow-Origin", "*");
         var obj = req.body.obj;
-        connection.query(`update goodbase set name="${obj.name}",price="${obj.price}",sale="${obj.sale}",tag="${obj.tag}",stock="${obj.stock}",det="${obj.det}",seller="${obj.seller}",you="${obj.you}" where id=${obj.id}`,function(err,ress,field){
+        // var de = querystring.stringify(obj.de_imgs);
+        connection.query(`update goodbase set name="${obj.name}",img="${obj.img}",price="${obj.price}",sale="${obj.sale}",tag="${obj.tag}",stock="${obj.stock}",det="${obj.det}",seller="${obj.seller}",you="${obj.you}" where id=${obj.id}`,function(err,ress,field){
             if(err) throw err;  
             console.log('update goodbase success');
-            connection.query(`update gooddetails set seller="${obj.seller}",brand="${obj.brand}",href="${obj.href}",param="${obj.param}",list="${obj.list}",free="${obj.free}",sub="${obj.sub}",deli="${obj.deli}" where id=${obj.id}`,function(err,ress,field){
+            connection.query(`update gooddetails set imgs="${obj.imgs}",seller="${obj.seller}",brand="${obj.brand}",href="${obj.href}",param="${obj.param}",list="${obj.list}",de_imgs='${obj.de_imgs}',free="${obj.free}",sub="${obj.sub}",deli="${obj.deli}" where id=${obj.id}`,function(err,ress,field){
                 if(err) throw err;  
                 console.log('update gooddetails success');
                 //完成ajax请求

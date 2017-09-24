@@ -3,16 +3,10 @@
 * @Date:   2017-09-02 12:04:42
 * @Last Modified by:   Marte
 <<<<<<< HEAD
-* @Last Modified time: 2017-09-11 13:10:59
-*/
-
-define(['cookie','user','da'],function(){
-=======
-* @Last Modified time: 2017-09-23 18:02:15
+* @Last Modified time: 2017-09-24 12:52:47
 */
 
 define(['cookie','user','da','socket'],function(a,b,c,io){
->>>>>>> be76d84a936013851c42337d43e79d421354c563
     return {
         fixF:function(){
             //购物车数量初始化
@@ -78,9 +72,6 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
             $("body,html").scrollTop(0);
             });
             
-<<<<<<< HEAD
-        }//fixF
-=======
         },//fixF
         custom:function(o){
             var other = '';
@@ -301,6 +292,5 @@ define(['cookie','user','da','socket'],function(a,b,c,io){
                 return {hour:hour,min:min,sec:sec}
             }
         }
->>>>>>> be76d84a936013851c42337d43e79d421354c563
     }//return
 });//defined

@@ -3,7 +3,7 @@
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
 <<<<<<< HEAD
-* @Last Modified time: 2017-09-23 21:03:05
+* @Last Modified time: 2017-09-24 13:19:13
 */
 
 require(['./add-good','./admin-index'],function(editor,upp){     
@@ -29,6 +29,8 @@ require(['./add-good','./admin-index'],function(editor,upp){
     var param_p = $(".add_param"),param=null;
     var list_p = $('.add_list'),list=null;
 
+    var imgsss = $(".edit_imgs");
+
     tags_p.find('ul').first().show();
     tags_.on('change',function(){        
         tags_p.find('ul').hide().end().find('.'+$(this).val()).show();
@@ -47,6 +49,12 @@ require(['./add-good','./admin-index'],function(editor,upp){
             $(this).val($(this).val().split('.')[0]);
     });
 
+    imgsss.on('click','a',function(e){
+        $(this).closest('div').fadeOut('fast',function() {
+            $(this).remove();
+        });
+    });
+    
     tags_p.on('click','.tag',function(){
         $(this).toggleClass('on');
     });
@@ -105,18 +113,28 @@ require(['./add-good','./admin-index'],function(editor,upp){
             alert('请确保标题、现价、分类、库存不为空。');
             return false;
         }
+        imgsss = imgsss.find('div img');
+
+        var img = str = imgsss.eq(0).attr('src').replace('../','');
+        
+        if(imgsss.length>1)
+            for(var i=1;i<imgsss.length;i++)
+                str += ';' + imgsss.eq(i).attr('src').replace("../",'');
+            
 
         var time = new Date();
         time = time.getFullYear()+'-'+time.getMonth()+"-"+time.getDate()+" "+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
 
         var obj = {
             name:name,
+            img:img,
             brand:brand,
             href:href,
             price:price==''?sale:price,
             sale:sale,
             tag:tags,
             det:det,
+            imgs:str,
             stock:stock,
             seller:seller,
             you:you,
@@ -125,18 +143,19 @@ require(['./add-good','./admin-index'],function(editor,upp){
             sub:sub,
             param:param,
             list:list,
-            time:time
+            time:time,
+            de_imgs:editor.txt.html()
         }  
-             
+            // console.log(obj)
+                 
         $.ajax({
-                 url: 'http://localhost:10086/insert',
-                 type: 'POST',
-                 data: {obj: obj},
-                 success:function(){
-                    history.go(-1);     
-                 }
-             });
-                                  
+             url: 'http://localhost:10086/insert',
+             type: 'POST',
+             data: {obj: obj},
+             success:function(){
+                history.go(-1);     
+             }
+         });
 
     });
 

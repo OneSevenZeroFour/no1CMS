@@ -2,16 +2,12 @@
 * @Author: Marte
 * @Date:   2017-09-13 17:29:50
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-23 20:51:13
+* @Last Modified time: 2017-09-24 13:17:46
 */
 require(['./add-good','./admin-index'],function(editor,up){
     var idx = location.search.slice(1).split('=')[1];
     up.upF();
     var name_p = $('.add_name'),name = '';
-
-    var img_p = $('.edit_img'),img='';
-    var imgs_p = $('.edit_imgs'),imgs = '';
-
     var brand_p = $('.add_brand'),brand = '其他';
     var href_p = $('.add_href'),href = '';
     var price_p = $('.add_price'),price=0;
@@ -32,22 +28,18 @@ require(['./add-good','./admin-index'],function(editor,up){
     var param_p = $(".add_param"),param=null;
     var list_p = $('.add_list'),list=null;
 
+    var imgsss = $(".edit_imgs");
+
     $.ajax({
         url: 'http://localhost:10086/select_one',
         type: 'POST',
         data: {id: idx},
         success:function(data){
             var obj = JSON.parse(data)[0];
-                 
-            name_p.val(obj.name);
-
-            img_p.html(`<div>
-                    <img src='../${obj.img}' />
-                    <a href='javascript:;'>&times;</a>
-                </div>`);
+            name_p.val(obj.name); 
             var arr = obj.imgs.split(';');
             if(arr[arr.length-1]=='') arr.pop();
-            imgs_p.html(arr.map(function(item){
+            imgsss.html(arr.map(function(item){
                 return `<div>
                 <img src='../${item}' />
                 <a href='javascript:;'>&times;</a>
@@ -89,6 +81,8 @@ require(['./add-good','./admin-index'],function(editor,up){
                 sub = obj.sub.slice(8,-1);                 
             sub_p.val(sub);
 
+            editor.txt.html(obj.de_imgs);
+
             free_p.val(obj.free);
             param_p.val(obj.param);
             list_p.val(obj.list);
@@ -117,11 +111,10 @@ require(['./add-good','./admin-index'],function(editor,up){
             $(this).val($(this).val().split('.')[0]);
     });
 
-    img_p.on('click','a',function(e){
-        $(this).closest('div').remove();
-    });
-    imgs_p.on('click','a',function(e){
-        $(this).closest('div').remove();
+    imgsss.on('click','a',function(e){
+        $(this).closest('div').fadeOut('fast',function() {
+            $(this).remove();
+        });
     });
 
     $("#edit_bn").on('click',function(e){
@@ -132,13 +125,7 @@ require(['./add-good','./admin-index'],function(editor,up){
         href = href_p.val().trim().replace(/</g,'&lt;').replace(/>/g,'&gt;');
         price = price_p.val();
         sale = sale_p.val();
-        tags = tags_.val()+tv_p.val(); 
-        img = img_p.find('img').attr('src').replace('../','');
-        var i_arr = imgs_p.find('img');
-        for(var i=0;i<i_arr.length;i++){
-            imgs += i_arr.eq(i).attr('src').replace('../','');
-            imgs += ';';
-        }     
+        tags = tags_.val()+tv_p.val();     
         var arr = tags_p.find('.'+tags+' .on');
         if(arr)
             for(var i=0;i<arr.length;i++){
@@ -165,7 +152,20 @@ require(['./add-good','./admin-index'],function(editor,up){
             alert('请确保标题、现价、分类、库存不为空。');
             return false;
         }
-
+        imgsss = imgsss.find('div img');
+        console.log(imgsss)
+        
+        var img = str = '';
+        if(imgsss.length>0) 
+            img = str = imgsss.eq(0).attr('src').replace('../','');               
+              
+            
+        if(imgsss.length>1)
+            for(var i=1;i<imgsss.length;i++)
+                str += ';' + imgsss.eq(i).attr('src').replace("../",'');
+            
+        console.log(img,str);
+             
         // var time = new Date();
         // time = time.getFullYear()+'-'+time.getMonth()+"-"+time.getDate()+" "+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
 
@@ -173,7 +173,7 @@ require(['./add-good','./admin-index'],function(editor,up){
             id:idx,
             name:name,
             img:img,
-            imgs:imgs,
+            imgs:str,
             brand:brand,
             href:href,
             price:price==''?sale:price,
@@ -188,6 +188,7 @@ require(['./add-good','./admin-index'],function(editor,up){
             sub:sub,
             param:param,
             list:list,
+            de_imgs:editor.txt.html()
             // time:time
         }  
 
@@ -199,6 +200,6 @@ require(['./add-good','./admin-index'],function(editor,up){
                 history.go(-1);
             }
         });
-    })
+    });
    
 });
