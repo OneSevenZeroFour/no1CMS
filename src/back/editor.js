@@ -5,14 +5,16 @@ var multer = require('multer');
 var storage;
 var upload;
 
+
 /*创建商家文件夹用于存放图片*/
-function createTmp(app,userid){
+function createTmp(app){
     app.get('/enterAddGood',function(req,res){
         res.set('Access-Control-Allow-Origin','*');
         var fls;
         var tmpUrl = './back/tmp/';
-        var srcUrl = './back/resource/'
-        // var userid = Cookie.get(req.header.cookie,'user');
+        var srcUrl = './back/resource/';
+        var userid = req.query.id;
+        // userid = Cookie.get(req.header.cookie,'user');
         // var userid = '1113';
         var wrong = 0;
         /*查看商品的图片缓存区是否存在*/
@@ -38,11 +40,13 @@ function createTmp(app,userid){
     });
 }
 /*保存临时图片至资源库*/
-function saveDetailImgs(app,userid){
+function saveDetailImgs(app){
     app.get('/didSaveImgs',function(req,res){
         res.set('Access-Control-Allow-Origin','*')
-        var fileUrl = './back/tmp/';
-        var newUrl = './back/resource/';
+        var fileUrl = 'back/tmp/';
+        var newUrl = 'back/resource/';
+        var userid = req.query.id;
+             
         // var userid = Cookie.get(req.header.cookie,'user');
         // var userid = '1113';
         fs.readdir(fileUrl+'shop' + userid,function(err,files){
@@ -51,7 +55,6 @@ function saveDetailImgs(app,userid){
                 res.send(JSON.stringify({'status':'fail'}));
                 return false;
             }
-            console.log(files);
             var errArr = [];
             files.forEach(function(item){
                 fs.rename(fileUrl+'shop'+userid+'/'+item,newUrl+'shop'+userid+'/'+item,function(err){
@@ -76,7 +79,6 @@ function saveDetailImgs(app,userid){
 /*删除未保存的临时图片*/
 function deleteTmpImgs(app,userid){
     app.get('/didUnsaveImgs',function(req,res){
-        console.log(333333);
              
         // res.set('Access-Control-Allow-Origin','*');
         var fileUrl = './back/tmp/';
@@ -111,12 +113,10 @@ function deleteTmpImgs(app,userid){
 function uploadImg(app,userid){
     app.post('/uploadToTmp',upload.any(),function(req,res){
         res.set('Access-Control-Allow-Origin','*');
-        console.log(req.files);
         var arr  = [];
         for(var i = 0 ;i < req.files.length ; i++){
             arr.push(req.files[i]);
         }
-        console.log(JSON.stringify(arr));
              
         res.send(JSON.stringify({
             status:'success',
@@ -149,7 +149,8 @@ function initAddGood(app,userid){
     saveDetailImgs(app,userid);
     deleteTmpImgs(app,userid);
 }
-function init(app,userid){
+function init(app){
+    var userid = 1113;
     //处理formData
     storage = multer.diskStorage({
         destination: function(req, file, cb){

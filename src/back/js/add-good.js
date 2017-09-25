@@ -2,14 +2,13 @@
 * @Author: Marte
 * @Date:   2017-09-21 09:28:23
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-24 12:30:12
+* @Last Modified time: 2017-09-25 11:29:25
 */
 
-define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
-
+define(['../back/wangEditor/release/wangEditor.min.js',,'../../js/cookie'],function(E){
+    var cc = new Cookie({name:"user"}).init();   
     var editor = new E('#add_intro');
     editor.create();
-    
     var imgArr = [];
 
     /*添加自定义 上传图片 按钮*/
@@ -73,13 +72,14 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
     }
     /*保存临时图片至*/
     /*必须在操作数据库前调用*/
-    function didSaveImgs(){
+    function didSaveImgs(userid,fn){
         console.log('didSaveImg');
              
         $.ajax({
             url: 'http://localhost:10086/didSaveImgs',
             type: 'GET',
-            dataType: 'json'
+            dataType: 'json',
+            data:{id:userid}
         })
         .done(function(data) {
 
@@ -95,6 +95,8 @@ define(['../back/wangEditor/release/wangEditor.min.js'],function(E){
                 newHTML = newHTML.replace(tmps[i],news[i]);
             }
             editor.txt.html(newHTML);
+
+            fn();
             // tmps.forEach()
             // oldHTML.replace('')
             // console.log(tmps)

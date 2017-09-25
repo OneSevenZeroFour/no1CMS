@@ -3,10 +3,21 @@
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
 <<<<<<< HEAD
-* @Last Modified time: 2017-09-24 13:19:13
+* @Last Modified time: 2017-09-25 12:57:13
 */
 
-require(['./add-good','./admin-index'],function(editor,upp){     
+require(['./add-good','./admin-index','../../js/cookie'],function(editor,upp){    
+    var cc = new Cookie({name:"user"}).init();  
+    $.ajax({
+       url: 'http://localhost:10086/enterAddGood',
+       dataType: 'json',
+       data:{id:cc.get()}
+    })
+    .done(function() {
+       console.log("success");
+    });  
+
+
     upp.upF();
     var name_p = $('.add_name'),name = '';
     var brand_p = $('.add_brand'),brand = '其他';
@@ -58,17 +69,17 @@ require(['./add-good','./admin-index'],function(editor,upp){
     tags_p.on('click','.tag',function(){
         $(this).toggleClass('on');
     });
-    var $getHtmlBtn = $('#getEditorHtml');
-    $getHtmlBtn.click(function(event) {
-        console.log(editor.txt.html())
-        $.ajax({
-            url: 'http://localhost:10086/enterAddGood',
-            dataType: 'json',
-        })
-        .done(function() {
-            console.log("success");
-        });  
-    });
+    // var $getHtmlBtn = $('#getEditorHtml');
+    // $getHtmlBtn.click(function(event) {
+    //     console.log(editor.txt.html())
+    //     $.ajax({
+    //         url: 'http://localhost:10086/enterAddGood',
+    //         dataType: 'json',
+    //     })
+    //     .done(function() {
+    //         console.log("success");
+    //     });  
+    // });
 
     window.onunload = function(){
         editor.didUnsaveImgs();
@@ -76,7 +87,6 @@ require(['./add-good','./admin-index'],function(editor,upp){
     window.onbeforeunload = function(){
         editor.didUnsaveImgs();
     }
-    // $('#add_bn').click(editor.didSaveImgs)
     $("#add_bn").on('click',function(e){
         e.preventDefault();
         
@@ -114,8 +124,9 @@ require(['./add-good','./admin-index'],function(editor,upp){
             return false;
         }
         imgsss = imgsss.find('div img');
-
-        var img = str = imgsss.eq(0).attr('src').replace('../','');
+        var img = str = '';
+        if(imgsss>0)     
+            img = str = imgsss.eq(0).attr('src').replace('../','');
         
         if(imgsss.length>1)
             for(var i=1;i<imgsss.length;i++)
@@ -123,40 +134,43 @@ require(['./add-good','./admin-index'],function(editor,upp){
             
 
         var time = new Date();
-        time = time.getFullYear()+'-'+time.getMonth()+"-"+time.getDate()+" "+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
+        time = time.getFullYear()+'-'+(time.getMonth()*1+1)+"-"+time.getDate()+" "+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
 
-        var obj = {
-            name:name,
-            img:img,
-            brand:brand,
-            href:href,
-            price:price==''?sale:price,
-            sale:sale,
-            tag:tags,
-            det:det,
-            imgs:str,
-            stock:stock,
-            seller:seller,
-            you:you,
-            deli:deli,
-            free:free,
-            sub:sub,
-            param:param,
-            list:list,
-            time:time,
-            de_imgs:editor.txt.html()
-        }  
-            // console.log(obj)
-                 
-        $.ajax({
-             url: 'http://localhost:10086/insert',
-             type: 'POST',
-             data: {obj: obj},
-             success:function(){
-                history.go(-1);     
-             }
-         });
+        editor.didSaveImgs(cc.get(),function(){
+            var obj = {
+                name:name,
+                img:img,
+                brand:brand,
+                href:href,
+                price:price==''?sale:price,
+                sale:sale,
+                tag:tags,
+                det:det,
+                imgs:str,
+                stock:stock,
+                seller:seller,
+                you:you,
+                deli:deli,
+                free:free,
+                sub:sub,
+                param:param,
+                list:list,
+                time:time,
+                de_imgs:editor.txt.html()
+            }  
+                // console.log(obj)
+                     
+            $.ajax({
+                 url: 'http://localhost:10086/insert',
+                 type: 'POST',
+                 data: {obj: obj},
+                 success:function(){
+                    history.go(-1);     
+                 }
+             });
 
+        });
+      
     });
 
  

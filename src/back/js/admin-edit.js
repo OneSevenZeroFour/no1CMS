@@ -2,9 +2,9 @@
 * @Author: Marte
 * @Date:   2017-09-13 17:29:50
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-24 13:17:46
+* @Last Modified time: 2017-09-25 11:49:00
 */
-require(['./add-good','./admin-index'],function(editor,up){
+require(['./add-good','./admin-index','../../js/cookie'],function(editor,up){
     var idx = location.search.slice(1).split('=')[1];
     up.upF();
     var name_p = $('.add_name'),name = '';
@@ -29,6 +29,16 @@ require(['./add-good','./admin-index'],function(editor,up){
     var list_p = $('.add_list'),list=null;
 
     var imgsss = $(".edit_imgs");
+    var cc = new Cookie({name:"user"}).init();   
+
+    $.ajax({
+        url: 'http://localhost:10086/enterAddGood',
+        dataType: 'json',
+        data:{id:cc.get()}
+    }).done(function() {
+       console.log("success");
+    });  
+
 
     $.ajax({
         url: 'http://localhost:10086/select_one',
@@ -36,6 +46,8 @@ require(['./add-good','./admin-index'],function(editor,up){
         data: {id: idx},
         success:function(data){
             var obj = JSON.parse(data)[0];
+            console.log(obj)
+                 
             name_p.val(obj.name); 
             var arr = obj.imgs.split(';');
             if(arr[arr.length-1]=='') arr.pop();
@@ -164,42 +176,44 @@ require(['./add-good','./admin-index'],function(editor,up){
             for(var i=1;i<imgsss.length;i++)
                 str += ';' + imgsss.eq(i).attr('src').replace("../",'');
             
-        console.log(img,str);
-             
+        editor.didSaveImgs(cc.get(),function(){
+            var obj = {
+                        id:idx,
+                        name:name,
+                        img:img,
+                        imgs:str,
+                        brand:brand,
+                        href:href,
+                        price:price==''?sale:price,
+                        sale:sale,
+                        tag:tags,
+                        det:det,
+                        stock:stock,
+                        seller:seller,
+                        you:you,
+                        deli:deli,
+                        free:free,
+                        sub:sub,
+                        param:param,
+                        list:list,
+                        de_imgs:editor.txt.html()
+                        // time:time
+                    }  
+
+                    $.ajax({
+                        url: 'http://localhost:10086/update',
+                        type: 'POST',
+                        data: {obj:obj},
+                        success:function(data){
+                            history.go(-1);
+                        }
+                    });
+            
+        });                  
+        
         // var time = new Date();
         // time = time.getFullYear()+'-'+time.getMonth()+"-"+time.getDate()+" "+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
-
-        var obj = {
-            id:idx,
-            name:name,
-            img:img,
-            imgs:str,
-            brand:brand,
-            href:href,
-            price:price==''?sale:price,
-            sale:sale,
-            tag:tags,
-            det:det,
-            stock:stock,
-            seller:seller,
-            you:you,
-            deli:deli,
-            free:free,
-            sub:sub,
-            param:param,
-            list:list,
-            de_imgs:editor.txt.html()
-            // time:time
-        }  
-
-        $.ajax({
-            url: 'http://localhost:10086/update',
-            type: 'POST',
-            data: {obj:obj},
-            success:function(data){
-                history.go(-1);
-            }
-        });
+ 
     });
    
 });

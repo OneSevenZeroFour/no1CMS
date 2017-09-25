@@ -222,8 +222,13 @@ ul{list-style: none;}
     font-size:12px;
     line-height:30px;
     color:#999;
+    position:relative;
+    /*width:100%;*/
 }
 #custom .right p span{
+    position:absolute;
+    right:0;
+    top:1px;
     margin-right:6px;
     margin-top:5px;
     border-radius:50%;
