@@ -3,7 +3,7 @@
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
 <<<<<<< HEAD
-* @Last Modified time: 2017-09-25 12:57:13
+* @Last Modified time: 2017-09-25 13:50:39
 */
 
 require(['./add-good','./admin-index','../../js/cookie'],function(editor,upp){    
@@ -125,7 +125,7 @@ require(['./add-good','./admin-index','../../js/cookie'],function(editor,upp){
         }
         imgsss = imgsss.find('div img');
         var img = str = '';
-        if(imgsss>0)     
+        if(imgsss.length>0)     
             img = str = imgsss.eq(0).attr('src').replace('../','');
         
         if(imgsss.length>1)
@@ -158,14 +158,14 @@ require(['./add-good','./admin-index','../../js/cookie'],function(editor,upp){
                 time:time,
                 de_imgs:editor.txt.html()
             }  
-                // console.log(obj)
+                console.log(obj)
                      
             $.ajax({
                  url: 'http://localhost:10086/insert',
                  type: 'POST',
                  data: {obj: obj},
                  success:function(){
-                    history.go(-1);     
+                    // history.go(-1);     
                  }
              });
 
