@@ -3,7 +3,7 @@
 * @Date:   2017-09-20 15:52:34
 * @Last Modified by:   Marte
 <<<<<<< HEAD
-* @Last Modified time: 2017-09-25 13:50:39
+* @Last Modified time: 2017-09-26 11:44:03
 */
 
 require(['./add-good','./admin-index','../../js/cookie'],function(editor,upp){    
@@ -165,7 +165,7 @@ require(['./add-good','./admin-index','../../js/cookie'],function(editor,upp){
                  type: 'POST',
                  data: {obj: obj},
                  success:function(){
-                    // history.go(-1);     
+                    history.go(-1);     
                  }
              });
 

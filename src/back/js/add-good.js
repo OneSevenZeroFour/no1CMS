@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2017-09-21 09:28:23
 * @Last Modified by:   Marte
-* @Last Modified time: 2017-09-25 11:29:25
+* @Last Modified time: 2017-09-26 12:00:21
 */
 
 define(['../back/wangEditor/release/wangEditor.min.js',,'../../js/cookie'],function(E){
